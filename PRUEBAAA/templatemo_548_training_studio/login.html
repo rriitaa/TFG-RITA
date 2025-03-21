@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Inserta aquí todo el CSS que ya tienes de tu página principal */
+    /* Esto incluirá los estilos previos, como la fuente, el encabezado, etc. */
+    
+    html, body {
+      background: #fff;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .background-header {
+      background: rgba(250,250,250,0.99) !important;
+      height: 80px!important;
+      position: fixed!important;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.15)!important;
+    }
+
+    /* Aquí agregarías los demás estilos globales */
+    
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding-top: 100px;
+    }
+
+    .login-box {
+      background-color: #fff;
+      padding: 30px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      width: 300px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #ed563b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #f9735b;
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    /* Header Styles */
+    .header-area {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 80px;
+      background: rgba(250, 250, 250, 0.99);
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .main-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      height: 100%;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      color: #232d39;
+      text-transform: uppercase;
+    }
+
+    .logo em {
+      font-style: normal;
+      color: #ed563b;
+    }
+
+    .main-nav a {
+      color: #232d39;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .main-nav a:hover {
+      color: #ed563b;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header section with "RB SMART FIT" -->
+  <header class="background-header">
+    <div class="header-area">
+      <div class="main-nav">
+        <a href="index.html" class="logo">
+          RB <em>SMART FIT</em>
+        </a>
+        <nav>
+          <!-- Add any additional menu items if needed here -->
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login form section -->
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Log In</h2>
+      <form action="#" method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Enter</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
