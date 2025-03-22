@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio</title>
+  <title>Comienza tu Entreno</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* Estilos generales */
     html, body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: url('file:///C:/Documentos/AAATFG/TFG-RITA/TFG-RITA/PRUEBAAA/templatemo_548_training_studio/assets/images/gym.jpg') no-repeat center center fixed;
-      background-size: cover;
-    }
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: url('file:///C:/Documentos/AAATFG/TFG-RITA/TFG-RITA/PRUEBAAA/templatemo_548_training_studio/assets/images/gym.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;  /* Necesario para posicionar el overlay */
+}
 
     /* Header */
     .background-header {
@@ -35,6 +36,17 @@
       padding: 0 20px;
       height: 100%;
     }
+
+    body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Capa gris oscuro semitransparente */
+  z-index: -1; /* Esto asegura que el overlay esté detrás del contenido */
+}
 
     .logo {
       font-size: 32px;
@@ -76,26 +88,44 @@
       margin-bottom: 40px;
     }
 
-    /* Botones */
-    .button-container {
+    /* Filtro de categorías */
+    .category-filter {
+      margin: 20px auto;
       display: flex;
-      justify-content: center;
-      gap: 20px;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+      margin-top: 30px;
     }
 
-    .main-button {
+    .category-filter label {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .category-filter select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ed563b;
+      background-color: #fff;
+      color: #232d39;
+    }
+
+    /* Botón de inicio */
+    .start-button {
       background-color: #ed563b;
       color: white;
-      padding: 30px 50px;  /* Haciendo los botones más grandes */
-      border-radius: 20px;  /* Bordes redondeados */
-      font-size: 18px;  /* Tamaño de fuente ajustado */
+      padding: 20px 40px;
+      border-radius: 20px;
+      font-size: 18px;
       cursor: pointer;
-      width: 200px;  /* Ancho del botón */
       text-align: center;
       transition: background-color 0.3s ease;
+      margin-top: 30px;
     }
 
-    .main-button:hover {
+    .start-button:hover {
       background-color: #f9735b;
     }
   </style>
@@ -120,13 +150,23 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <h1>¿Qué quieres hacer hoy?</h1>
-    
-    <div class="button-container">
-      <a href="comienza-entreno.html" class="main-button">Comienza tu entreno</a>
-      <a href="sube-ejers.html" class="main-button">Sube tus ejers</a>
-      <a href="#" class="main-button">Botón de IA/Asistente</a>
+    <h1>Comienza tu entreno</h1>
+    <h2>¿Qué estás buscando hacer hoy?</h2>
+
+    <!-- Filtro de categorías -->
+    <div class="category-filter">
+      <label for="category">Selecciona una categoría:</label>
+      <select id="category" name="category">
+        <option value="fuerza">Ejercicios de fuerza (Strength, Box)</option>
+        <option value="cardio">Cardio (Correr, Ciclismo)</option>
+        <option value="flexibilidad">Flexibilidad (Yoga, Estiramientos)</option>
+        <option value="gluteos">Glúteos y pierna</option>
+        <option value="espalda">Espalda sana</option>
+      </select>
     </div>
+
+    <!-- Botón de inicio -->
+    <a href="#" class="start-button">Comenzar entrenamiento</a>
   </div>
 
 </body>
