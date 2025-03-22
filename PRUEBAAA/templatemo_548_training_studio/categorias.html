@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comunidad</title>
+  <title>Categorías</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* Estilos generales */
@@ -63,8 +63,8 @@
       color: #ed563b;
     }
 
-    /* Título de la página Comunidad */
-    .comunidad-title {
+    /* Título de la página Categorías */
+    .categorias-title {
       text-align: center;
       font-size: 40px;
       margin-top: 100px; /* Para no tapar el header */
@@ -72,44 +72,38 @@
       margin-bottom: 40px;
     }
 
-    /* Estilo de las publicaciones (tarjetas) */
-    .post-container {
+    /* Estilo para las categorías */
+    .categorias-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(3, 1fr); /* 3 columnas */
       gap: 20px;
       padding: 20px;
+      justify-items: center; /* Para que se centren las tarjetas */
     }
 
-    .post-card {
+    .categoria-card {
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%; /* Hace que las tarjetas no excedan el ancho de la columna */
+      max-width: 280px; /* Para que no sean demasiado grandes */
     }
 
-    .post-card h2 {
+    .categoria-card h3 {
       font-size: 24px;
       color: #232d39;
       margin-bottom: 10px;
     }
 
-    .post-card p {
+    .categoria-card p {
       font-size: 16px;
       color: #555;
       margin-bottom: 10px;
     }
 
-    .post-card .user-info {
-      font-size: 14px;
-      color: #888;
-    }
-
-    .post-card .user-info span {
-      font-weight: bold;
-    }
-
-    /* Estilo para el botón de interacción */
-    .interaction-button {
+    .categoria-card .view-button {
       background-color: #ed563b;
       color: white;
       padding: 10px 20px;
@@ -117,14 +111,26 @@
       text-align: center;
       text-decoration: none;
       font-size: 16px;
-      margin-top: 10px;
-      display: inline-block;
       transition: background-color 0.3s;
     }
 
-    .interaction-button:hover {
+    .categoria-card .view-button:hover {
       background-color: #f9735b;
     }
+
+    /* Responsividad para pantallas pequeñas */
+    @media screen and (max-width: 768px) {
+      .categorias-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas pequeñas */
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .categorias-list {
+        grid-template-columns: 1fr; /* 1 columna en pantallas muy pequeñas */
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -140,37 +146,47 @@
         <a href="#categ">Categorias</a>
         <a href="comunidad.html">Comunidad</a>
         <a href="mis-publis.html">Mis Publicaciones</a>
-        <a href="perfil.html">Mi perfil</a>
+        <a href="#miperfil">Mi perfil</a>
       </nav>
     </div>
   </header>
 
   <!-- Main Content -->
-  <div class="comunidad-title">
-    <h1>Comunidad</h1>
+  <div class="categorias-title">
+    <h1>Categorías de Ejercicio</h1>
   </div>
 
-  <div class="post-container">
-    <!-- Tarjetas de publicaciones -->
-    <div class="post-card">
-      <h2>Ejercicio de Fuerza en Casa</h2>
-      <p>Publicación sobre cómo hacer ejercicios de fuerza en casa sin equipamiento. ¡Reto para todos!</p>
-      <div class="user-info">
-        <span>Publicado por:</span> Usuario123 | <span>Fecha:</span> 12/03/2025
-      </div>
-      <a href="#" class="interaction-button">Ver más</a>
+  <div class="categorias-list">
+    <!-- Tarjetas de categorías -->
+    <div class="categoria-card">
+      <h3>Ejercicios de Fuerza</h3>
+      <p>Incluye rutinas como Strength y Box para aumentar la fuerza muscular y mejorar el rendimiento físico.</p>
+      <a href="fuerza.html" class="view-button">Ver Ejercicios</a>
     </div>
 
-    <div class="post-card">
-      <h2>Cardio en la Ruta</h2>
-      <p>Una publicación sobre los beneficios de correr al aire libre y consejos sobre cómo mejorar tu resistencia.</p>
-      <div class="user-info">
-        <span>Publicado por:</span> Usuario456 | <span>Fecha:</span> 11/03/2025
-      </div>
-      <a href="#" class="interaction-button">Ver más</a>
+    <div class="categoria-card">
+      <h3>Cardio</h3>
+      <p>Ejercicios como correr y ciclismo para mejorar la resistencia cardiovascular y quemar calorías.</p>
+      <a href="cardio.html" class="view-button">Ver Ejercicios</a>
     </div>
 
-    <!-- Agregar más publicaciones aquí -->
+    <div class="categoria-card">
+      <h3>Flexibilidad</h3>
+      <p>Rutinas de Yoga y estiramientos para mejorar la movilidad y elasticidad corporal.</p>
+      <a href="flexibilidad.html" class="view-button">Ver Ejercicios</a>
+    </div>
+
+    <div class="categoria-card">
+      <h3>Glúteos y Pierna</h3>
+      <p>Enfócate en tonificar y fortalecer tus glúteos y piernas con ejercicios específicos.</p>
+      <a href="gluteos-pierna.html" class="view-button">Ver Ejercicios</a>
+    </div>
+
+    <div class="categoria-card">
+      <h3>Espalda Sana</h3>
+      <p>Rutinas para fortalecer y cuidar la salud de tu espalda, evitando dolores y mejorando la postura.</p>
+      <a href="espalda-sana.html" class="view-button">Ver Ejercicios</a>
+    </div>
   </div>
 
 </body>
