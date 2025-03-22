@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio</title>
+  <title>Comunidad</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* Estilos generales */
@@ -11,7 +11,6 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      height: 100vh;
       background: url('file:///C:/Documentos/AAATFG/TFG-RITA/TFG-RITA/PRUEBAAA/templatemo_548_training_studio/assets/images/gym.jpg') no-repeat center center fixed;
       background-size: cover;
     }
@@ -64,38 +63,66 @@
       color: #ed563b;
     }
 
-    /* Contenido principal */
-    .main-content {
+    /* Título de la página Comunidad */
+    .comunidad-title {
       text-align: center;
-      padding-top: 100px; /* Para no tapar el header */
+      font-size: 40px;
+      margin-top: 100px; /* Para no tapar el header */
       color: #fff;
-    }
-
-    .main-content h1 {
-      font-size: 36px;
       margin-bottom: 40px;
     }
 
-    /* Botones */
-    .button-container {
-      display: flex;
-      justify-content: center;
+    /* Estilo de las publicaciones (tarjetas) */
+    .post-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
+      padding: 20px;
     }
 
-    .main-button {
+    .post-card {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-card h2 {
+      font-size: 24px;
+      color: #232d39;
+      margin-bottom: 10px;
+    }
+
+    .post-card p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .post-card .user-info {
+      font-size: 14px;
+      color: #888;
+    }
+
+    .post-card .user-info span {
+      font-weight: bold;
+    }
+
+    /* Estilo para el botón de interacción */
+    .interaction-button {
       background-color: #ed563b;
       color: white;
-      padding: 30px 50px;  /* Haciendo los botones más grandes */
-      border-radius: 20px;  /* Bordes redondeados */
-      font-size: 18px;  /* Tamaño de fuente ajustado */
-      cursor: pointer;
-      width: 200px;  /* Ancho del botón */
+      padding: 10px 20px;
+      border-radius: 5px;
       text-align: center;
-      transition: background-color 0.3s ease;
+      text-decoration: none;
+      font-size: 16px;
+      margin-top: 10px;
+      display: inline-block;
+      transition: background-color 0.3s;
     }
 
-    .main-button:hover {
+    .interaction-button:hover {
       background-color: #f9735b;
     }
   </style>
@@ -110,9 +137,8 @@
       </a>
       <nav class="navbar">
         <a href="index.html">Inicio</a>
-        <a href="#our-classes">Categorías</a>>
+        <a href="#categ">Categorias</a>
         <a href="comunidad.html">Comunidad</a>
-
         <a href="mis-publis.html">Mis Publicaciones</a>
         <a href="#miperfil">Mi perfil</a>
       </nav>
@@ -120,14 +146,31 @@
   </header>
 
   <!-- Main Content -->
-  <div class="main-content">
-    <h1>¿Qué quieres hacer hoy?</h1>
-    
-    <div class="button-container">
-      <a href="comienza-entreno.html" class="main-button">Comienza tu entreno</a>
-      <a href="sube-ejers.html" class="main-button">Sube tus ejers</a>
-      <a href="ia-asistente.html" class="main-button">Botón de IA/Asistente</a>
+  <div class="comunidad-title">
+    <h1>Comunidad</h1>
+  </div>
+
+  <div class="post-container">
+    <!-- Tarjetas de publicaciones -->
+    <div class="post-card">
+      <h2>Ejercicio de Fuerza en Casa</h2>
+      <p>Publicación sobre cómo hacer ejercicios de fuerza en casa sin equipamiento. ¡Reto para todos!</p>
+      <div class="user-info">
+        <span>Publicado por:</span> Usuario123 | <span>Fecha:</span> 12/03/2025
+      </div>
+      <a href="#" class="interaction-button">Ver más</a>
     </div>
+
+    <div class="post-card">
+      <h2>Cardio en la Ruta</h2>
+      <p>Una publicación sobre los beneficios de correr al aire libre y consejos sobre cómo mejorar tu resistencia.</p>
+      <div class="user-info">
+        <span>Publicado por:</span> Usuario456 | <span>Fecha:</span> 11/03/2025
+      </div>
+      <a href="#" class="interaction-button">Ver más</a>
+    </div>
+
+    <!-- Agregar más publicaciones aquí -->
   </div>
 
 </body>

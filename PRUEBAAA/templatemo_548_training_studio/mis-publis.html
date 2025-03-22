@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio</title>
+  <title>Mis Publicaciones</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* Estilos generales */
@@ -66,9 +66,9 @@
 
     /* Contenido principal */
     .main-content {
-      text-align: center;
-      padding-top: 100px; /* Para no tapar el header */
+      padding-top: 120px; /* Para no tapar el header */
       color: #fff;
+      text-align: center;
     }
 
     .main-content h1 {
@@ -76,28 +76,40 @@
       margin-bottom: 40px;
     }
 
-    /* Botones */
-    .button-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
+    /* Lista de publicaciones */
+    .publi-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .main-button {
-      background-color: #ed563b;
-      color: white;
-      padding: 30px 50px;  /* Haciendo los botones más grandes */
-      border-radius: 20px;  /* Bordes redondeados */
-      font-size: 18px;  /* Tamaño de fuente ajustado */
+    .publi-item {
+      background-color: rgba(246, 242, 242, 0.979);
+      color: #323030;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
       cursor: pointer;
-      width: 200px;  /* Ancho del botón */
-      text-align: center;
       transition: background-color 0.3s ease;
     }
 
-    .main-button:hover {
-      background-color: #f9735b;
+    .publi-item:hover {
+      background-color: #ed563b;
     }
+
+    .publi-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .publi-date {
+      font-size: 14px;
+      color: #ccc;
+    }
+
   </style>
 </head>
 <body>
@@ -110,10 +122,9 @@
       </a>
       <nav class="navbar">
         <a href="index.html">Inicio</a>
-        <a href="#our-classes">Categorías</a>>
+        <a href="#cate">Categorias</a>
         <a href="comunidad.html">Comunidad</a>
-
-        <a href="mis-publis.html">Mis Publicaciones</a>
+        <a href="mis-publis.html">Mis publicaciones</a>
         <a href="#miperfil">Mi perfil</a>
       </nav>
     </div>
@@ -121,13 +132,22 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <h1>¿Qué quieres hacer hoy?</h1>
-    
-    <div class="button-container">
-      <a href="comienza-entreno.html" class="main-button">Comienza tu entreno</a>
-      <a href="sube-ejers.html" class="main-button">Sube tus ejers</a>
-      <a href="ia-asistente.html" class="main-button">Botón de IA/Asistente</a>
-    </div>
+    <h1>Mis Publicaciones</h1>
+
+    <ul class="publi-list">
+      <!-- Ejemplo de publicación -->
+      <li class="publi-item" onclick="window.location.href='detalle-publi.html'">
+        <div class="publi-title">Ejercicio de Fuerza: Sentadillas</div>
+        <div class="publi-date">Fecha: 12/03/2025</div>
+      </li>
+
+      <li class="publi-item" onclick="window.location.href='detalle-publi.html'">
+        <div class="publi-title">Cardio: Correr 5km</div>
+        <div class="publi-date">Fecha: 10/03/2025</div>
+      </li>
+      
+      <!-- Aquí puedes ir añadiendo publicaciones -->
+    </ul>
   </div>
 
 </body>
