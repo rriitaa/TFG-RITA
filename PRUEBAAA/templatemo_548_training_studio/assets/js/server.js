@@ -58,6 +58,7 @@ app.post("/register", async (req, res) => {
 
   
   //LOGIN DE USUARIOOOOOOOOOOOOO
+  //Crea la ruta de login
   app.post("/login", (req, res) => {
     const { email, contraseña } = req.body;
   
@@ -83,6 +84,7 @@ app.post("/register", async (req, res) => {
   
 
   //SUBIR EJERCICIOOOOOOOOOOO
+  //Los usuarios podrán agregar ejercicios a su rutina.
   app.post("/subir-ejercicio", (req, res) => {
     const { nombre, descripcion, categoria_id } = req.body;
   
@@ -98,7 +100,8 @@ app.post("/register", async (req, res) => {
 
   
 
-  //VER CATEGORIAS Y EJERCISIOOOOOOOOOOOOOOOOS
+  //VER CATEGORIAS Y EJERCICIOOOOOOOOOOOOOOOOS
+  //Para mostrar una lista de ejercicios según su categoría.
   app.get("/categorias", (req, res) => {
     db.query("SELECT * FROM categorias", (err, result) => {
       if (err) return res.status(500).json({ message: "Error al obtener categorías" });
@@ -117,6 +120,7 @@ app.post("/register", async (req, res) => {
   
 
   //CREAR RUTINASSSSSSSSSS DE ENTRENAMINETOOOOOOOOOOO
+  //Los usuarios podrán guardar rutinas personalizadas.
   app.post("/crear-rutina", (req, res) => {
     const { usuario_id, nombre_rutina, descripcion } = req.body;
   
@@ -133,6 +137,7 @@ app.post("/register", async (req, res) => {
   
 
   //MOSTRAR RUTINAS GUARDADAS POR USUARIOOOOOOOOOOOOO
+  //Para que el usuario pueda ver sus rutinas.
   app.get("/mis-rutinas/:usuario_id", (req, res) => {
     const { usuario_id } = req.params;
     db.query("SELECT * FROM rutinas WHERE usuario_id = ?", [usuario_id], (err, result) => {
@@ -142,5 +147,5 @@ app.post("/register", async (req, res) => {
   });
 
   
-  
+
   
