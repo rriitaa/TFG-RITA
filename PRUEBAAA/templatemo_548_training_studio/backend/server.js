@@ -1,83 +1,68 @@
 const express = require("express");
-const mysql = require("mysql2");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const cors = require("cors");
-require("dotenv").config();
-
+const bcrypt = require("bcrypt");
+const session = require("express-session");
+const mysql = require("mysql");
 const app = express();
-app.use(cors());
-app.use(express.json());
+const port = 5000;
 
-// Conectar con MySQL
+// Conexión a la base de datos
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,  // Definir valores en el archivo .env
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "mydb"
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Error al conectar con MySQL:", err);
-    return;
-  }
-  console.log("Conectado a la base de datos MySQL");
-});
+// Middleware para parsear JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Ruta GET para verificar que el servidor funciona
-app.get("/", (req, res) => {
-  res.send("Servidor en ejecución. Puedes hacer peticiones POST a /register");
-});
+// Configurar sesiones
+app.use(
+  session({
+    secret: "mysecretkey",
+    resave: false,
+    saveUninitialized: true
+  })
+);
 
-// Registro de usuario
-app.post("/register", async (req, res) => {
-  console.log(req.body); // Depuración para verificar los datos recibidos
+// Ruta para el login
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
 
-  const { nombre, email, contrasena, confirmar_contrasena, dob } = req.body;
-
-  // Verificar si faltan datos
-  if (!nombre || !email || !contrasena || !confirmar_contrasena || !dob) {
-    return res.status(400).json({ message: "Faltan datos. Todos los campos son obligatorios" });
-  }
-
-  // Verificar si las contraseñas coinciden
-  if (contrasena !== confirmar_contrasena) {
-    return res.status(400).json({ message: "Las contraseñas no coinciden" });
-  }
-
-  // Verificar si el usuario ya existe
-  db.query("SELECT * FROM usuarios WHERE email = ?", [email], async (err, result) => {
+  // Buscar usuario por el email
+  db.query("SELECT * FROM usuarios WHERE email = ?", [email], (err, result) => {
     if (err) {
-      console.error("Error en la consulta:", err);
-      return res.status(500).json({ message: "Error al consultar la base de datos" });
+      return res.status(500).json({ message: "Error en la base de datos" });
+    }
+    
+    // Si no encuentra al usuario
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    if (result.length > 0) {
-      return res.status(400).json({ message: "El usuario ya existe" });
-    }
+    const user = result[0];
 
-    // Si las contraseñas coinciden, encriptar la contraseña
-    const salt = await bcrypt.genSalt(10); // Ajusta el número según lo necesario
-    const hashedPassword = await bcrypt.hash(contrasena, salt);
-
-    // Insertar en la base de datos
-    db.query(
-      "INSERT INTO usuarios (nombre, email, contrasena, dob) VALUES (?, ?, ?, ?)",
-      [nombre, email, hashedPassword, dob],
-      (err, result) => {
-        if (err) {
-          console.error("Error al insertar los datos:", err);  // Mostrar el error real en la consola
-          return res.status(500).json({ message: "Error en la inserción de datos" });
-        }
-        res.status(201).json({ message: "Usuario registrado correctamente" });
+    // Verificar la contraseña
+    bcrypt.compare(password, user.contrasena, (err, isMatch) => {
+      if (err) {
+        return res.status(500).json({ message: "Error al verificar la contraseña" });
       }
-    );
+
+      if (isMatch) {
+        // Iniciar sesión
+        req.session.userId = user.id;
+        return res.status(200).json({ message: "Login exitoso", redirect: "/inicio.html" });
+      } else {
+        return res.status(401).json({ message: "Contraseña incorrecta" });
+      }
+    });
   });
 });
 
-// Configuración del puerto y arranque del servidor
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// Servir archivos estáticos (si los tienes en una carpeta pública)
+app.use(express.static("public"));
+
+app.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
 });
