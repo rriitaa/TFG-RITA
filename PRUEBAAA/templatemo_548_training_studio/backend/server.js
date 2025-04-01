@@ -25,127 +25,52 @@ db.connect((err) => {
   }
 });
 
+// Ruta GET para la raíz
+app.get("/", (req, res) => {
+  res.send("Servidor en ejecución. Puedes hacer peticiones POST a /register");
+});
+
+// Registro de usuario
+app.post("/register", async (req, res) => {
+  console.log(req.body); // Añadir para depurar
+
+  const { nombre, email, contrasena, confirmar_contrasena, dob } = req.body;
+
+  // Verificar si faltan datos
+  if (!nombre || !email || !contrasena || !confirmar_contrasena || !dob) {
+    return res.status(400).json({ message: "Faltan datos. Todos los campos son obligatorios" });
+  }
+
+  // Verificar si las contraseñas coinciden
+  if (contrasena !== confirmar_contrasena) {
+    return res.status(400).json({ message: "Las contraseñas no coinciden" });
+  }
+
+  // Verificar si el usuario ya existe
+  db.query("SELECT * FROM usuarios WHERE email = ?", [email], async (err, result) => {
+    if (err) return res.status(500).json({ message: "Error al consultar la base de datos" });
+
+    if (result.length > 0) {
+      return res.status(400).json({ message: "El usuario ya existe" });
+    }
+
+    // Encriptar contraseña
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(contrasena, salt);
+
+    // Insertar en la base de datos
+    db.query("INSERT INTO usuarios (nombre, email, contrasena, dob) VALUES (?, ?, ?, ?)", 
+  [nombre, email, hashedPassword, dob], 
+  (err, result) => {
+    if (err) {
+      console.error("Error al insertar los datos:", err);  // Mostrar el error real en la consola
+      return res.status(500).json({ message: "Error en la inserción de datos" });
+    }
+    res.status(201).json({ message: "Usuario registrado correctamente" });
+});
+
+// Configuración del puerto y arranque del servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
-
-
-
-//REGISTRO DE USUARIOOOOOOOOOOOOOOOOOOOO
-app.post("/register", async (req, res) => {
-    const { nombre, email, contraseña } = req.body;
-  
-    // Verificar si el usuario ya existe
-    db.query("SELECT * FROM usuarios WHERE email = ?", [email], async (err, result) => {
-      if (result.length > 0) {
-        return res.status(400).json({ message: "El usuario ya existe" });
-      }
-  
-      // Encriptar contraseña
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(contraseña, salt);
-  
-      // Insertar en la base de datos
-      db.query("INSERT INTO usuarios (nombre, email, contraseña) VALUES (?, ?, ?)", 
-        [nombre, email, hashedPassword], 
-        (err, result) => {
-          if (err) return res.status(500).json({ message: "Error en el servidor" });
-          res.status(201).json({ message: "Usuario registrado correctamente" });
-      });
-    });
-  });
-
-  
-  //LOGIN DE USUARIOOOOOOOOOOOOO
-  //Crea la ruta de login
-  app.post("/login", (req, res) => {
-    const { email, contraseña } = req.body;
-  
-    db.query("SELECT * FROM usuarios WHERE email = ?", [email], async (err, result) => {
-      if (result.length === 0) {
-        return res.status(400).json({ message: "Usuario no encontrado" });
-      }
-  
-      const usuario = result[0];
-      const contraseñaValida = await bcrypt.compare(contraseña, usuario.contraseña);
-  
-      if (!contraseñaValida) {
-        return res.status(400).json({ message: "Contraseña incorrecta" });
-      }
-  
-      // Crear token de autenticación
-      const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-  
-      res.json({ message: "Login exitoso", token });
-    });
-  });
-
-  
-
-  //SUBIR EJERCICIOOOOOOOOOOO
-  //Los usuarios podrán agregar ejercicios a su rutina.
-  app.post("/subir-ejercicio", (req, res) => {
-    const { nombre, descripcion, categoria_id } = req.body;
-  
-    db.query(
-      "INSERT INTO ejercicios (nombre, descripcion, categoria_id) VALUES (?, ?, ?)", 
-      [nombre, descripcion, categoria_id], 
-      (err, result) => {
-        if (err) return res.status(500).json({ message: "Error al subir ejercicio" });
-        res.status(201).json({ message: "Ejercicio subido correctamente" });
-      }
-    );
-  });
-
-  
-
-  //VER CATEGORIAS Y EJERCICIOOOOOOOOOOOOOOOOS
-  //Para mostrar una lista de ejercicios según su categoría.
-  app.get("/categorias", (req, res) => {
-    db.query("SELECT * FROM categorias", (err, result) => {
-      if (err) return res.status(500).json({ message: "Error al obtener categorías" });
-      res.json(result);
-    });
-  });
-  
-  app.get("/ejercicios/:categoria_id", (req, res) => {
-    const { categoria_id } = req.params;
-    db.query("SELECT * FROM ejercicios WHERE categoria_id = ?", [categoria_id], (err, result) => {
-      if (err) return res.status(500).json({ message: "Error al obtener ejercicios" });
-      res.json(result);
-    });
-  });
-
-  
-
-  //CREAR RUTINASSSSSSSSSS DE ENTRENAMINETOOOOOOOOOOO
-  //Los usuarios podrán guardar rutinas personalizadas.
-  app.post("/crear-rutina", (req, res) => {
-    const { usuario_id, nombre_rutina, descripcion } = req.body;
-  
-    db.query(
-      "INSERT INTO rutinas (usuario_id, nombre_rutina, descripcion) VALUES (?, ?, ?)",
-      [usuario_id, nombre_rutina, descripcion],
-      (err, result) => {
-        if (err) return res.status(500).json({ message: "Error al crear rutina" });
-        res.status(201).json({ message: "Rutina creada correctamente" });
-      }
-    );
-  });
-
-  
-
-  //MOSTRAR RUTINAS GUARDADAS POR USUARIOOOOOOOOOOOOO
-  //Para que el usuario pueda ver sus rutinas.
-  app.get("/mis-rutinas/:usuario_id", (req, res) => {
-    const { usuario_id } = req.params;
-    db.query("SELECT * FROM rutinas WHERE usuario_id = ?", [usuario_id], (err, result) => {
-      if (err) return res.status(500).json({ message: "Error al obtener rutinas" });
-      res.json(result);
-    });
-  });
-
-  
-
-  
+});});});

@@ -1,116 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    html, body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: url('assets/images/gym.jpg') no-repeat center center fixed;
-      background-size: cover;
-    }
-
-    .background-header {
-      background: rgba(250,250,250,0.95);
-      height: 80px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
-      z-index: 100;
-    }
-
-    .header-area {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-      height: 100%;
-    }
-
-    .logo {
-      font-size: 32px;
-      font-weight: 800;
-      color: #232d39;
-      text-transform: uppercase;
-    }
-
-    .logo em {
-      font-style: normal;
-      color: #ed563b;
-    }
-
-    .signup-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      padding-top: 80px;
-    }
-
-    .signup-box {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-      width: 350px;
-      text-align: center;
-    }
-
-    .signup-box input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-
-    .signup-box button {
-      width: 100%;
-      padding: 12px;
-      background-color: #ed563b;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    .signup-box button:hover {
-      background-color: #f9735b;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
 </head>
 <body>
-  <header class="background-header">
-    <div class="header-area">
-      <a href="index.html" class="logo">
-        RB <em>SMART FIT</em>
-      </a>
-    </div>
-  </header>
+    <h1>Registro de Usuario</h1>
+    <form id="signupForm">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+        </div>
+        <div>
+            <label for="confirmar_contrasena">Confirmar Contraseña:</label>
+            <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required>
+        </div>
+        <div>
+            <label for="dob">Fecha de Nacimiento:</label>
+            <input type="date" id="dob" name="dob" required>
+        </div>
+        <button type="submit">Registrar</button>
+    </form>
 
-  <div class="signup-container">
-    <div class="signup-box">
-      <h2>Sign Up</h2>
-      <form action="#" method="POST">
-        <input type="text" name="name" placeholder="Nombre y Apellidos" required>
-        <input type="email" name="email" placeholder="Correo Electrónico" required>
-        <input type="password" name="password" placeholder="Contraseña" required>
-        <input type="password" name="confirm_password" placeholder="Confirmar Contraseña" required>
-        <input type="date" name="dob" placeholder="Fecha de Nacimiento (Opcional)">
-        <button type="submit">Crear Cuenta</button>
-      </form>
-    </div>
-  </div>
-  <script src="register.js"></script>
-
+    <script src="register.js"></script>
 </body>
 </html>

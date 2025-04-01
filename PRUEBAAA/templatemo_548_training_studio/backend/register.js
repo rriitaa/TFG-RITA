@@ -1,40 +1,33 @@
-import React, { useState } from "react";
-import { registerUser } from "../api";
+document.getElementById('signupForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
 
-const Register = () => {
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [contraseña, setContraseña] = useState("");
-  const [mensaje, setMensaje] = useState("");
+  const nombre = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const contrasena = document.getElementById('contrasena').value;
+  const confirmar_contrasena = document.getElementById('confirmar_contrasena').value;
+  const dob = document.getElementById('dob').value;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await registerUser({ nombre, email, contraseña });
-      setMensaje(response.message); // Mensaje de éxito
-    } catch (error) {
-      setMensaje("Error al registrar usuario");
-    }
+  const data = {
+      nombre,
+      email,
+      contrasena,
+      confirmar_contrasena,
+      dob
   };
 
-  return (
-    <div>
-      <h2>Registro de Usuario</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Nombre:</label>
-        <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
+  try {
+      const response = await fetch('http://localhost:5000/register', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      });
 
-        <label>Email:</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-
-        <label>Contraseña:</label>
-        <input type="password" value={contraseña} onChange={(e) => setContraseña(e.target.value)} required />
-
-        <button type="submit">Registrarse</button>
-      </form>
-      {mensaje && <p>{mensaje}</p>}
-    </div>
-  );
-};
-
-export default Register;
+      const result = await response.json();
+      alert(result.message);
+  } catch (error) {
+      console.error('Error:', error);
+      alert('Hubo un error al registrar el usuario');
+  }
+});
