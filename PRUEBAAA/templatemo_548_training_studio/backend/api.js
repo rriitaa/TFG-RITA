@@ -1,73 +1,47 @@
-import axios from "axios";
+import express from "express";
+import mysql from "mysql";
+import bodyParser from "body-parser";
 
-const API_URL = "http://localhost:5000"; // URL de tu backend
+const app = express();
+const PORT = 5000;
 
-export const registerUser = async (userData) => {
-  try {
-    const response = await axios.post(`${API_URL}/register`, userData);
-    return response.data;
-  } catch (error) {
-    console.error("Error en el registro:", error.response?.data);
-    throw error;
-  }
-};
+// Configuración de la base de datos
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'mi_base_de_datos'
+});
 
-export const loginUser = async (userData) => {
-  try {
-    const response = await axios.post(`${API_URL}/login`, userData);
-    return response.data;
-  } catch (error) {
-    console.error("Error en el login:", error.response?.data);
-    throw error;
-  }
-};
+db.connect((err) => {
+    if (err) throw err;
+    console.log('Conectado a la base de datos');
+});
 
-export const subirEjercicio = async (ejercicioData) => {
-  try {
-    const response = await axios.post(`${API_URL}/subir-ejercicio`, ejercicioData);
-    return response.data;
-  } catch (error) {
-    console.error("Error al subir ejercicio:", error.response?.data);
-    throw error;
-  }
-};
+// Middleware para procesar JSON
+app.use(bodyParser.json());
 
-export const obtenerCategorias = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/categorias`);
-    return response.data;
-  } catch (error) {
-    console.error("Error al obtener categorías:", error.response?.data);
-    throw error;
-  }
-};
+// Ruta para el registro de usuario
+app.post("/register", (req, res) => {
+    const { nombre, email, contrasena, dob } = req.body;
 
-export const obtenerEjerciciosPorCategoria = async (categoria_id) => {
-  try {
-    const response = await axios.get(`${API_URL}/ejercicios/${categoria_id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error al obtener ejercicios:", error.response?.data);
-    throw error;
-  }
-};
+    // Validación básica de los datos
+    if (!nombre || !email || !contrasena || !dob) {
+        return res.status(400).send("Todos los campos son obligatorios");
+    }
 
-export const crearRutina = async (rutinaData) => {
-  try {
-    const response = await axios.post(`${API_URL}/crear-rutina`, rutinaData);
-    return response.data;
-  } catch (error) {
-    console.error("Error al crear rutina:", error.response?.data);
-    throw error;
-  }
-};
+    // Insertar el nuevo usuario en la base de datos
+    const query = "INSERT INTO users (nombre, email, contrasena, dob) VALUES (?, ?, ?, ?)";
+    db.query(query, [nombre, email, contrasena, dob], (err, result) => {
+        if (err) {
+            console.error("Error al registrar usuario:", err);
+            return res.status(500).send("Error al registrar usuario");
+        }
+        res.status(200).send("Usuario registrado con éxito");
+    });
+});
 
-export const obtenerRutinasPorUsuario = async (usuario_id) => {
-  try {
-    const response = await axios.get(`${API_URL}/mis-rutinas/${usuario_id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error al obtener rutinas:", error.response?.data);
-    throw error;
-  }
-};
+// Inicia el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
