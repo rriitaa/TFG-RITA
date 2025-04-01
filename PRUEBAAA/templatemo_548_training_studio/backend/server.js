@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Conectar con MySQL
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,
+  host: process.env.DB_HOST,  // Definir valores en el archivo .env
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
@@ -20,9 +20,9 @@ const db = mysql.createConnection({
 db.connect((err) => {
   if (err) {
     console.error("Error al conectar con MySQL:", err);
-  } else {
-    console.log("Conectado a la base de datos MySQL");
+    return;
   }
+  console.log("Conectado a la base de datos MySQL");
 });
 
 // Ruta GET para verificar que el servidor funciona
@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 
 // Registro de usuario
 app.post("/register", async (req, res) => {
-  console.log(req.body); // Añadir para depurar
+  console.log(req.body); // Depuración para verificar los datos recibidos
 
   const { nombre, email, contrasena, confirmar_contrasena, dob } = req.body;
 
@@ -57,18 +57,14 @@ app.post("/register", async (req, res) => {
       return res.status(400).json({ message: "El usuario ya existe" });
     }
 
-    //En el caso de q quiera encriptar contraseña
-    //en la base de datos aparecerá la contraseña encriptada del usuario
-    //const salt = await bcrypt.genSalt(4);
-    //const hashedPassword = await bcrypt.hash(contrasena, salt);
-
-    // Ya no se encripta la contraseña
-    const hashedPassword = contrasena;
-
+    // Si las contraseñas coinciden, encriptar la contraseña
+    const salt = await bcrypt.genSalt(10); // Ajusta el número según lo necesario
+    const hashedPassword = await bcrypt.hash(contrasena, salt);
 
     // Insertar en la base de datos
-    db.query("INSERT INTO usuarios (nombre, email, contrasena, dob) VALUES (?, ?, ?, ?)", 
-      [nombre, email, hashedPassword, dob], 
+    db.query(
+      "INSERT INTO usuarios (nombre, email, contrasena, dob) VALUES (?, ?, ?, ?)",
+      [nombre, email, hashedPassword, dob],
       (err, result) => {
         if (err) {
           console.error("Error al insertar los datos:", err);  // Mostrar el error real en la consola

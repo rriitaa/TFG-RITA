@@ -1,39 +1,44 @@
-import { registerUser } from './api.js'; // Importamos la función desde api.js
+document.getElementById("signupForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevenir que el formulario se envíe de manera tradicional
 
-// Obtén el formulario
-const signupForm = document.getElementById("signupForm");
-
-// Evento de envío del formulario
-signupForm.addEventListener("submit", async (event) => {
-    event.preventDefault(); // Evita el comportamiento por defecto del formulario (recargar la página)
-
-    // Captura los valores del formulario
     const nombre = document.getElementById("nombre").value;
     const email = document.getElementById("email").value;
     const contrasena = document.getElementById("contrasena").value;
     const confirmarContrasena = document.getElementById("confirmar_contrasena").value;
     const dob = document.getElementById("dob").value;
 
-    // Validación básica de la contraseña
+    // Verificar si las contraseñas coinciden
     if (contrasena !== confirmarContrasena) {
-        alert("Las contraseñas no coinciden");
+        alert("Las contraseñas no coinciden.");
         return;
     }
 
-    // Crea un objeto con los datos del usuario
-    const userData = {
-        nombre,
-        email,
-        contrasena,
-        dob
+    // Crear el objeto de datos a enviar
+    const datos = {
+        nombre: nombre,
+        email: email,
+        contrasena: contrasena,
+        dob: dob
     };
 
-    try {
-        // Llama a la función que registra al usuario
-        const response = await registerUser(userData);
-        alert("Usuario registrado con éxito");
-        // Redirige o realiza alguna acción después del registro exitoso
-    } catch (error) {
-        alert("Error en el registro. Intenta nuevamente.");
-    }
+    // Enviar los datos al servidor usando Fetch API
+    fetch("/registro", {  // Asegúrate de que esta ruta es correcta en tu servidor
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Usuario registrado correctamente.");
+        } else {
+            alert("Hubo un error al registrar el usuario.");
+        }
+    })
+    .catch(error => {
+        console.error("Error al registrar el usuario:", error);
+        alert("Hubo un error al enviar los datos.");
+    });
 });
