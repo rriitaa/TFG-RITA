@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('config.php'); // Asegúrate de tener la configuración de la base de datos aquí
+include('config.php'); // Conexión a la base de datos
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verificar la contraseña
         if (password_verify($password, $user['password'])) {
             // Si la contraseña es correcta, guardar la información del usuario en la sesión
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['email'] = $user['email'];
+            $_SESSION['user_id'] = $user['id']; // Guardamos el ID del usuario en la sesión
+            $_SESSION['email'] = $user['email']; // Guardamos el email en la sesión
             header("Location: inicio.html"); // Redirigir a la página de inicio
             exit();
         } else {
