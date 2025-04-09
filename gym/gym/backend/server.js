@@ -1,7 +1,6 @@
 const express = require("express");
 const mysql = require("mysql2");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const path = require("path"); // 👈 nuevo
 require("dotenv").config();
@@ -75,9 +74,38 @@ app.post("/register", async (req, res) => {
   });
 });
 
+// Login de usuario
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Todos los campos son obligatorios" });
+  }
+
+  db.query("SELECT * FROM usuarios WHERE email = ?", [email], async (err, results) => {
+    if (err) {
+      console.error("Error al consultar la base de datos:", err);
+      return res.status(500).json({ message: "Error interno del servidor" });
+    }
+
+    if (results.length === 0) {
+      return res.status(401).json({ message: "Usuario no encontrado" });
+    }
+
+    const user = results[0];
+
+    const isMatch = await bcrypt.compare(password, user.contrasena);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Contraseña incorrecta" });
+    }
+
+    // 🟢 Opcional: aquí podrías generar un token JWT o guardar en sesión
+    res.status(200).json({ message: "Login exitoso" });
+  });
+});
+
 // Puerto
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
