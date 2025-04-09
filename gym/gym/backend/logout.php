@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 session_unset(); // Eliminar todas las variables de sesión
