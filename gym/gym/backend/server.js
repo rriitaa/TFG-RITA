@@ -1,104 +1,83 @@
-const express = require('express');
-const mysql = require('mysql2');
-const bcrypt = require('bcryptjs');
-const session = require('express-session');
+const express = require("express");
+const mysql = require("mysql2");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const cors = require("cors");
+const path = require("path"); // 👈 nuevo
+require("dotenv").config();
 
 const app = express();
-const port = 3000;
-
-// Configuración para que Express maneje los datos del formulario
-app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(express.json());
 
-// Configuración de la sesión
-app.use(session({
-    secret: 'mi_clave_secreta',
-    resave: false,
-    saveUninitialized: true
-}));
+// ✅ Servir archivos estáticos (HTML, CSS, JS) desde la carpeta superior
+app.use(express.static(path.join(__dirname, '..')));
 
-// Conexión a la base de datos MySQL
+// Conectar con MySQL
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',  // Cambia por tu usuario de MySQL
-    password: 'Rosita100997',  // Cambia por tu contraseña de MySQL
-    database: 'tfg-rita'  // Cambia por el nombre de tu base de datos
+  host: process.env.DB_HOST,  
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
-// Verificar si la conexión a la base de datos es exitosa
 db.connect((err) => {
+  if (err) {
+    console.error("Error al conectar con MySQL:", err);
+    return;
+  }
+  console.log("Conectado a la base de datos MySQL");
+});
+
+// ✅ Redirigir la ruta raíz al index.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
+// Registro de usuario
+app.post("/register", async (req, res) => {
+  console.log(req.body);
+
+  const { nombre, email, contrasena, confirmar_contrasena, dob } = req.body;
+
+  if (!nombre || !email || !contrasena || !confirmar_contrasena || !dob) {
+    return res.status(400).json({ message: "Faltan datos. Todos los campos son obligatorios" });
+  }
+
+  if (contrasena !== confirmar_contrasena) {
+    return res.status(400).json({ message: "Las contraseñas no coinciden" });
+  }
+
+  db.query("SELECT * FROM usuarios WHERE email = ?", [email], async (err, result) => {
     if (err) {
-        console.error('Error de conexión a la base de datos:', err);
-        return;
+      console.error("Error en la consulta:", err);
+      return res.status(500).json({ message: "Error al consultar la base de datos" });
     }
-    console.log('Conexión a la base de datos establecida');
-});
 
-// Ruta para el registro de usuarios (signup)
-app.post('/register', (req, res) => {
-    const { email, password } = req.body;
-    const hashedPassword = bcrypt.hashSync(password, 10);
-
-    // Inserción de usuario en la base de datos
-    const query = 'INSERT INTO usuarios (email, password) VALUES (?, ?)';
-    db.execute(query, [email, hashedPassword], (err, results) => {
-        if (err) {
-            console.error('Error al registrar usuario:', err);
-            return res.status(500).send('Error al registrar usuario');
-        }
-        res.send('Usuario registrado con éxito');
-    });
-});
-
-// Ruta para procesar el login (login)
-app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-
-    // Consulta para encontrar al usuario por email
-    const query = 'SELECT * FROM usuarios WHERE email = ?';
-    db.execute(query, [email], (err, results) => {
-        if (err) {
-            console.error('Error de consulta:', err);
-            return res.status(500).send('Error en la base de datos');
-        }
-
-        // Si el usuario no existe
-        if (results.length === 0) {
-            return res.send('Usuario no encontrado');
-        }
-
-        // Si el usuario existe, verificar la contraseña
-        const user = results[0];
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-            if (err) {
-                console.error('Error de comparación de contraseñas:', err);
-                return res.status(500).send('Error al verificar la contraseña');
-            }
-
-            // Si las contraseñas coinciden
-            if (isMatch) {
-                // Guardamos la sesión del usuario
-                req.session.user_id = user.id;
-                req.session.email = user.email;
-
-                // Redirigir a la página de inicio
-                return res.redirect('/inicio.html');
-            } else {
-                return res.send('Contraseña incorrecta');
-            }
-        });
-    });
-});
-
-// Ruta para mostrar la página de inicio (inicio.html)
-app.get('/inicio.html', (req, res) => {
-    if (!req.session.user_id) {
-        return res.redirect('/login.html');
+    if (result.length > 0) {
+      return res.status(400).json({ message: "El usuario ya existe" });
     }
-    res.sendFile(__dirname + '/inicio.html');  // Asume que tienes un archivo inicio.html en el mismo directorio
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(contrasena, salt);
+
+    db.query(
+      "INSERT INTO usuarios (nombre, email, contrasena, dob) VALUES (?, ?, ?, ?)",
+      [nombre, email, hashedPassword, dob],
+      (err, result) => {
+        if (err) {
+          console.error("Error al insertar los datos:", err);
+          return res.status(500).json({ message: "Error en la inserción de datos" });
+        }
+        res.status(201).json({ message: "Usuario registrado correctamente" });
+      }
+    );
+  });
 });
 
-// Iniciar el servidor
-app.listen(port, () => {
-    console.log(`Servidor escuchando en http://localhost:${port}`);
+// Puerto
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
