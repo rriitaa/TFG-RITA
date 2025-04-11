@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* Estilos generales */
@@ -12,7 +13,7 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: url('file:///C:/Documentos/AAATFG/TFG-RITA/TFG-RITA/PRUEBAAA/templatemo_548_training_studio/assets/images/gym.jpg') no-repeat center center fixed;
+      background: url('assets/images/gym.jpg') no-repeat center center fixed;
       background-size: cover;
     }
 
@@ -89,7 +90,6 @@
     .login-box button:hover {
       background-color: #f9735b;
     }
-
   </style>
 </head>
 <body>
@@ -115,6 +115,7 @@
   </div>
 
   <script>
+    // Función de login
     document.querySelector("form").addEventListener("submit", async function (e) {
       e.preventDefault();
 
@@ -133,8 +134,8 @@
         const data = await response.json();
 
         if (response.ok) {
-          // ✅ Login exitoso, redirigimos
-          window.location.href = "inicio.html";
+          // ✅ Login exitoso, redirigir al inicio
+          window.location.href = "inicio.html"; // Redirigir a la página de inicio
         } else {
           // ❌ Mostrar error
           alert(data.message);

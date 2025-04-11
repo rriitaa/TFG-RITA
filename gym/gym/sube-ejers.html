@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: url('file:///C:/Documentos/AAATFG/TFG-RITA/TFG-RITA/PRUEBAAA/templatemo_548_training_studio/assets/images/gym.jpg') no-repeat center center fixed;
+      background: url('assets/images/gym.jpg') no-repeat center center fixed;
       background-size: cover;
     }
 
@@ -121,8 +121,6 @@
     .action-button:hover {
       opacity: 0.8;
     }
-
-    
   </style>
 </head>
 <body>
@@ -147,26 +145,29 @@
   <div class="form-container">
     <h1 style="text-align: center; margin-bottom: 30px;">Sube tu ejercicio o rutina</h1>
 
-    <label for="titulo-ejercicio">Título del ejercicio/rutina:</label>
-    <input type="text" id="titulo-ejercicio" name="titulo-ejercicio" required>
-
-    <label for="categoria-ejercicio">Categoría:</label>
-    <select id="categoria-ejercicio" name="categoria-ejercicio" required>
-      <option value="fuerza">Ejercicios de fuerza (strength, box)</option>
-      <option value="cardio">Cardio (correr, ciclismo)</option>
-      <option value="flexibilidad">Flexibilidad (yoga y estiramientos)</option>
-      <option value="gluteos">Glúteos y pierna</option>
-      <option value="espalda">Espalda sana</option>
-    </select>
-
-    <label for="descripcion-ejercicio">Descripción:</label>
-    <textarea id="descripcion-ejercicio" name="descripcion-ejercicio" required></textarea>
-
-    <!-- Botones para modificar y eliminar publicación -->
-    <div class="button-container">
-      <button class="action-button modify">📝 Subir publicación</button>
-      <button class="action-button delete">❌ Eliminar publicación</button>
-    </div>
+    <form action="http://localhost:5000/subir-ejercicio" method="POST">
+      <label for="titulo-ejercicio">Título del ejercicio/rutina:</label>
+      <input type="text" id="titulo-ejercicio" name="titulo" required>
+    
+      <label for="categoria-ejercicio">Categoría:</label>
+      <select id="categoria-ejercicio" name="categoria" required>
+        <option value="fuerza">Ejercicios de fuerza (strength, box)</option>
+        <option value="cardio">Cardio (correr, ciclismo)</option>
+        <option value="flexibilidad">Flexibilidad (yoga y estiramientos)</option>
+        <option value="gluteos">Glúteos y pierna</option>
+        <option value="espalda">Espalda sana</option>
+      </select>
+    
+      <label for="descripcion-ejercicio">Descripción:</label>
+      <textarea id="descripcion-ejercicio" name="descripcion" required></textarea>
+    
+      <!-- Botones para modificar y eliminar publicación -->
+      <div class="button-container">
+        <button class="action-button modify" type="submit">📝 Subir publicación</button>
+        <button class="action-button delete" type="reset">❌ Eliminar publicación</button>
+      </div>
+    </form>
+    
   </div>
 
 </body>
