@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recuperar Contraseña</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Estilos generales */
     html, body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
@@ -17,7 +16,6 @@
       background-size: cover;
     }
 
-    /* Header */
     .background-header {
       background: rgba(250,250,250,0.95);
       height: 80px;
@@ -49,16 +47,15 @@
       color: #ed563b;
     }
 
-    /* Estilos del formulario */
-    .login-container {
+    .recovery-container {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      padding-top: 80px; /* Para no tapar el header */
+      padding-top: 80px;
     }
 
-    .login-box {
+    .recovery-box {
       background: rgba(255, 255, 255, 0.9);
       padding: 30px;
       border-radius: 8px;
@@ -67,7 +64,7 @@
       text-align: center;
     }
 
-    .login-box input {
+    .recovery-box input {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -76,7 +73,7 @@
       font-size: 14px;
     }
 
-    .login-box button {
+    .recovery-box button {
       width: 100%;
       padding: 12px;
       background-color: #ed563b;
@@ -87,8 +84,16 @@
       cursor: pointer;
     }
 
-    .login-box button:hover {
+    .recovery-box button:hover {
       background-color: #f9735b;
+    }
+
+    .recovery-box a {
+      display: block;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ed563b;
+      text-decoration: none;
     }
   </style>
 </head>
@@ -102,54 +107,43 @@
     </div>
   </header>
 
-  <!-- Login Form -->
-  <div class="login-container">
-    <div class="login-box">
-      <h2>Log In</h2>
+  <!-- Recovery Form -->
+  <div class="recovery-container">
+    <div class="recovery-box">
+      <h2>Recuperar Contraseña</h2>
+      <p style="font-size: 14px;">Introduce tu correo y te enviaremos instrucciones para restablecer tu contraseña.</p>
       <form>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Contraseña" required>
-        <button type="submit">Entrar</button>
+        <input type="email" name="email" placeholder="Tu email" required>
+        <button type="submit">Enviar instrucciones</button>
       </form>
-  
-      <!-- Enlace para recuperar contraseña -->
-      <div style="margin-top: 10px;">
-        <a href="recuperar.html" style="font-size: 14px; color: #ed563b; text-decoration: none;">
-          ¿Has olvidado tu contraseña?
-        </a>
-      </div>
+      <a href="login.html">Volver al login</a>
     </div>
   </div>
 
   <script>
-    // Función de login
-    document.querySelector("form").addEventListener("submit", async function (e) {
+    document.querySelector("form").addEventListener("submit", async function(e) {
       e.preventDefault();
-
       const email = document.querySelector('input[name="email"]').value;
-      const password = document.querySelector('input[name="password"]').value;
 
       try {
-        const response = await fetch("/login", {
+        const response = await fetch("/recuperar", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email }),
         });
 
         const data = await response.json();
 
         if (response.ok) {
-          // ✅ Login exitoso, redirigir al inicio
-          window.location.href = "inicio.html"; // Redirigir a la página de inicio
+          alert("Te hemos enviado un email con instrucciones.");
         } else {
-          // ❌ Mostrar error
-          alert(data.message);
+          alert(data.message || "No se pudo procesar tu solicitud.");
         }
-      } catch (err) {
-        alert("Error al conectar con el servidor");
-        console.error(err);
+      } catch (error) {
+        console.error(error);
+        alert("Error al conectar con el servidor.");
       }
     });
   </script>
