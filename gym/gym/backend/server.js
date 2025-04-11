@@ -3,6 +3,7 @@ const mysql = require("mysql2");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const path = require("path");
+const nodemailer = require('nodemailer');
 require("dotenv").config();
 
 const app = express();
@@ -32,6 +33,33 @@ db.connect((err) => {
 // Ruta raíz
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
+// ✅ Recuperar contraseña
+app.post("/recuperar", (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Por favor, ingresa tu correo electrónico" });
+  }
+
+  // Verificar si el correo existe en la base de datos
+  db.query("SELECT * FROM usuarios WHERE email = ?", [email], (err, results) => {
+    if (err) {
+      console.error("Error al consultar la base de datos:", err);
+      return res.status(500).json({ message: "Error al consultar la base de datos" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: "No se encontró un usuario con ese correo" });
+    }
+
+    // Aquí iría la lógica para enviar el correo real. Ahora solo simulamos.
+    console.log(`Enviando correo de recuperación a: ${email}`);
+
+    // Simulamos que el correo se envió correctamente
+    res.status(200).json({ message: "Correo de recuperación enviado con éxito" });
+  });
 });
 
 // ✅ Registro de usuario con contraseña cifrada
@@ -137,6 +165,63 @@ app.post("/subir-ejercicio", (req, res) => {
     res.status(201).json({ message: "Ejercicio subido correctamente" });
   });
 });
+// Configuración de Nodemailer (usarás tus credenciales)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,  // Tu correo electrónico
+    pass: process.env.EMAIL_PASS,  // Tu contraseña o app password de Gmail
+  },
+});
+// ✅ Recuperar contraseña
+app.post("/recuperar", (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Por favor, ingresa tu correo electrónico" });
+  }
+
+  // Verificar si el correo existe en la base de datos
+  db.query("SELECT * FROM usuarios WHERE email = ?", [email], (err, results) => {
+    if (err) {
+      console.error("Error al consultar la base de datos:", err);
+      return res.status(500).json({ message: "Error al consultar la base de datos" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: "No se encontró un usuario con ese correo" });
+    }
+
+    // Generar un token de recuperación (este token puede ser usado para validar el proceso de recuperación)
+    const recoveryToken = Math.random().toString(36).substr(2); // Simple token de ejemplo, puedes usar algo más seguro como JWT
+
+    // Actualizar la base de datos con el token de recuperación
+    db.query("UPDATE usuarios SET recovery_token = ? WHERE email = ?", [recoveryToken, email], (err, updateResult) => {
+      if (err) {
+        console.error("Error al actualizar el token de recuperación:", err);
+        return res.status(500).json({ message: "Error al actualizar el token de recuperación" });
+      }
+
+      // Enviar correo con Nodemailer
+      const mailOptions = {
+        from: process.env.EMAIL_USER,  // Tu correo electrónico
+        to: email,
+        subject: 'Recupera tu contraseña',
+        text: `Hemos recibido una solicitud para recuperar tu contraseña. Haz clic en el siguiente enlace para restablecer tu contraseña:\n\nhttp://localhost:5000/restablecer/${recoveryToken}\n\nSi no solicitaste este cambio, ignora este correo.`
+      };
+
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          console.error("Error al enviar el correo:", err);
+          return res.status(500).json({ message: "Error al enviar el correo de recuperación" });
+        }
+        console.log("Correo enviado:", info.response);
+        res.status(200).json({ message: "Correo de recuperación enviado con éxito" });
+      });
+    });
+  });
+});
+
 
 // 🟢 Iniciar servidor
 const PORT = process.env.PORT || 5000;

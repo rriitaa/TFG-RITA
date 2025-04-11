@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Categorías de Ejercicios</title>
+  <title>Ejercicios de Fuerza</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* Estilos generales */
@@ -64,8 +64,8 @@
       color: #ed563b;
     }
 
-    /* Estilo para las categorías */
-    .categorias-title {
+    /* Título de la página Ejercicios de Fuerza */
+    .ejercicios-title {
       text-align: center;
       font-size: 40px;
       color: #fff;
@@ -73,63 +73,50 @@
       margin-bottom: 40px;
     }
 
-    .categorias-list {
+    /* Estilo para los ejercicios */
+    .ejercicios-list {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr); /* 3 columnas */
       gap: 20px;
       padding: 20px;
-      justify-items: center;
+      justify-items: center; /* Para que se centren las tarjetas */
     }
 
-    .categoria-card {
+    .ejercicio-card {
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       text-align: center;
-      width: 100%;
+      width: 100%; /* Hace que las tarjetas no excedan el ancho de la columna */
       max-width: 280px;
     }
 
-    .categoria-card h3 {
+    .ejercicio-card h3 {
       font-size: 24px;
       color: #232d39;
       margin-bottom: 10px;
     }
 
-    .categoria-card p {
+    .ejercicio-card p {
       font-size: 16px;
       color: #555;
       margin-bottom: 10px;
     }
 
-    .view-button {
-      background-color: #ed563b;
-      color: white;
-      padding: 10px 20px;
-      font-size: 16px;
-      text-decoration: none;
-      border-radius: 5px;
-      display: inline-block;
-      margin-top: 10px;
-    }
-
-    .view-button:hover {
-      background-color: #e94d30;
-    }
-
-    /* Responsividad */
+    /* Responsividad para pantallas pequeñas */
     @media screen and (max-width: 768px) {
-      .categorias-list {
-        grid-template-columns: repeat(2, 1fr);
+      .ejercicios-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas pequeñas */
       }
     }
 
     @media screen and (max-width: 480px) {
-      .categorias-list {
-        grid-template-columns: 1fr;
+      .ejercicios-list {
+        grid-template-columns: 1fr; /* 1 columna en pantallas muy pequeñas */
       }
     }
+
   </style>
 </head>
 <body>
@@ -151,40 +138,30 @@
   </header>
 
   <!-- Main Content -->
-  <div class="categorias-title">
-    <h1>Categorías de Ejercicios</h1>
+  <div class="ejercicios-title">
+    <h1>Ejercicios de Fuerza</h1>
   </div>
 
-  <div class="categorias-list">
-    <!-- Tarjetas de categorías -->
-    <div class="categoria-card">
-      <h3>Fuerza</h3>
-      <p>Ejercicios para fortalecer músculos y mejorar la resistencia.</p>
-      <a href="ejercicios_fuerza.html" class="view-button">Ver Ejercicios</a>
+  <div class="ejercicios-list">
+    <!-- Tarjetas de ejercicios -->
+    <div class="ejercicio-card">
+      <h3>Sentadillas</h3>
+      <p>Excelente ejercicio para fortalecer las piernas y glúteos.</p>
     </div>
 
-    <div class="categoria-card">
-      <h3>Cardio</h3>
-      <p>Ejercicios para mejorar la salud cardiovascular y quemar calorías.</p>
-      <a href="ejercicios_cardio.html" class="view-button">Ver Ejercicios</a>
+    <div class="ejercicio-card">
+      <h3>Flexiones</h3>
+      <p>Ideal para trabajar el pecho, los hombros y los tríceps.</p>
     </div>
 
-    <div class="categoria-card">
-      <h3>Flexibilidad</h3>
-      <p>Ejercicios para aumentar la movilidad y elasticidad del cuerpo.</p>
-      <a href="ejercicios_flexibilidad.html" class="view-button">Ver Ejercicios</a>
+    <div class="ejercicio-card">
+      <h3>Pesas</h3>
+      <p>Entrenamiento para aumentar la masa muscular y la fuerza.</p>
     </div>
 
-    <div class="categoria-card">
-      <h3>Glúteos</h3>
-      <p>Ejercicios enfocados en tonificar y fortalecer los glúteos.</p>
-      <a href="ejercicios_gluteos.html" class="view-button">Ver Ejercicios</a>
-    </div>
-
-    <div class="categoria-card">
-      <h3>Espalda</h3>
-      <p>Ejercicios para mejorar la postura y fortalecer la espalda baja.</p>
-      <a href="ejercicios_espalda.html" class="view-button">Ver Ejercicios</a>
+    <div class="ejercicio-card">
+      <h3>Pull-ups</h3>
+      <p>Excelente para fortalecer la espalda y los bíceps.</p>
     </div>
 
   </div>
