@@ -11,7 +11,7 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background: url('assets/gym.jpg') no-repeat center center fixed;
+      background: url('assets/images/gym.jpg') no-repeat center center fixed;
       background-size: cover;
       height: 100vh;
     }
@@ -64,8 +64,8 @@
       color: #ed563b;
     }
 
-    /* Título de la página Ejercicios de Fuerza */
-    .ejercicios-title {
+    /* Título y contenido de los ejercicios */
+    .strength-title {
       text-align: center;
       font-size: 40px;
       color: #fff;
@@ -73,50 +73,75 @@
       margin-bottom: 40px;
     }
 
-    /* Estilo para los ejercicios */
-    .ejercicios-list {
+    .strength-exercises {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
       padding: 20px;
-      justify-items: center; /* Para que se centren las tarjetas */
+      justify-items: center;
     }
 
-    .ejercicio-card {
+    .exercise {
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       text-align: center;
-      width: 100%; /* Hace que las tarjetas no excedan el ancho de la columna */
+      width: 100%;
       max-width: 280px;
     }
 
-    .ejercicio-card h3 {
+    .exercise h2 {
       font-size: 24px;
       color: #232d39;
       margin-bottom: 10px;
     }
 
-    .ejercicio-card p {
+    .exercise p {
       font-size: 16px;
       color: #555;
       margin-bottom: 10px;
     }
 
-    /* Responsividad para pantallas pequeñas */
+    .exercise ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .exercise li {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .view-button {
+      background-color: #ed563b;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .view-button:hover {
+      background-color: #e94d30;
+    }
+
+    /* Responsividad */
     @media screen and (max-width: 768px) {
-      .ejercicios-list {
-        grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas pequeñas */
+      .strength-exercises {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
     @media screen and (max-width: 480px) {
-      .ejercicios-list {
-        grid-template-columns: 1fr; /* 1 columna en pantallas muy pequeñas */
+      .strength-exercises {
+        grid-template-columns: 1fr;
       }
     }
-
   </style>
 </head>
 <body>
@@ -138,33 +163,44 @@
   </header>
 
   <!-- Main Content -->
-  <div class="ejercicios-title">
+  <div class="strength-title">
     <h1>Ejercicios de Fuerza</h1>
   </div>
 
-  <div class="ejercicios-list">
-    <!-- Tarjetas de ejercicios -->
-    <div class="ejercicio-card">
-      <h3>Sentadillas</h3>
-      <p>Excelente ejercicio para fortalecer las piernas y glúteos.</p>
+  <div class="strength-exercises">
+    <!-- Ejercicios de Fuerza -->
+    <div class="exercise">
+      <h2>Flexiones</h2>
+      <p>Las flexiones son un ejercicio clásico para trabajar el pecho, los tríceps y los hombros.</p>
+      <ul>
+        <li>Duración: 3 series de 10 repeticiones</li>
+        <li>Intensidad: Alta</li>
+        <li>Beneficios: Fortalece el torso superior</li>
+      </ul>
+      <img src="assets/images/flexiones.jpg" alt="Flexiones" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
 
-    <div class="ejercicio-card">
-      <h3>Flexiones</h3>
-      <p>Ideal para trabajar el pecho, los hombros y los tríceps.</p>
+    <div class="exercise">
+      <h2>Sentadillas</h2>
+      <p>Las sentadillas trabajan principalmente los muslos, glúteos y caderas, mejorando la fuerza en las piernas.</p>
+      <ul>
+        <li>Duración: 4 series de 15 repeticiones</li>
+        <li>Intensidad: Alta</li>
+        <li>Beneficios: Mejora la fuerza en la parte inferior del cuerpo</li>
+      </ul>
+      <img src="assets/images/sentadillas.jpg" alt="Sentadillas" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
 
-    <div class="ejercicio-card">
-      <h3>Pesas</h3>
-      <p>Entrenamiento para aumentar la masa muscular y la fuerza.</p>
+    <div class="exercise">
+      <h2>Plancha</h2>
+      <p>La plancha es un ejercicio de fuerza centrado en el core que trabaja todo el torso.</p>
+      <ul>
+        <li>Duración: 3 series de 30 segundos</li>
+        <li>Intensidad: Alta</li>
+        <li>Beneficios: Fortalece el abdomen y mejora la postura</li>
+      </ul>
+      <img src="assets/images/plancha.jpg" alt="Plancha" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
-
-    <div class="ejercicio-card">
-      <h3>Pull-ups</h3>
-      <p>Excelente para fortalecer la espalda y los bíceps.</p>
-    </div>
-
   </div>
-
 </body>
 </html>
