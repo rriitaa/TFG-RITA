@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicios de Flexibilidad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Estilos generales */
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+    }
+
+    /* Header */
+    .background-header {
+      background: rgba(250,250,250,0.95);
+      height: 80px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+      z-index: 100;
+    }
+
+    .header-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      height: 100%;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      color: #232d39;
+      text-transform: uppercase;
+    }
+
+    .logo em {
+      font-style: normal;
+      color: #ed563b;
+    }
+
+    .navbar {
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #232d39;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .navbar a:hover {
+      color: #ed563b;
+    }
+
+    /* Título y contenido de los ejercicios */
+    .flexibility-title {
+      text-align: center;
+      font-size: 40px;
+      color: #fff;
+      margin-top: -150px;
+      margin-bottom: 40px;
+    }
+
+    .flexibility-exercises {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px;
+      justify-items: center;
+    }
+
+    .exercise {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .exercise h2 {
+      font-size: 24px;
+      color: #232d39;
+      margin-bottom: 10px;
+    }
+
+    .exercise p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .exercise ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .exercise li {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .view-button {
+      background-color: #ed563b;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .view-button:hover {
+      background-color: #e94d30;
+    }
+
+    /* Responsividad */
+    @media screen and (max-width: 768px) {
+      .flexibility-exercises {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .flexibility-exercises {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="background-header">
+    <div class="header-area">
+      <a href="index.html" class="logo">
+        RB <em>SMART FIT</em>
+      </a>
+      <nav class="navbar">
+        <a href="inicio.html">Inicio</a>
+        <a href="categorias.html">Categorías</a>
+        <a href="comunidad.html">Comunidad</a>
+        <a href="mis-publis.html">Mis Publicaciones</a>
+        <a href="miperfil.html">Mi perfil</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="flexibility-title">
+    <h1>Ejercicios de Flexibilidad</h1>
+  </div>
+
+  <div class="flexibility-exercises">
+    <!-- Ejercicios de Flexibilidad -->
+    <div class="exercise">
+      <h2>Estiramiento de cuádriceps</h2>
+      <p>Este estiramiento ayuda a mejorar la flexibilidad de los cuádriceps, lo que es importante para la salud de las piernas.</p>
+      <ul>
+        <li>Duración: 30 segundos por pierna</li>
+        <li>Intensidad: Baja</li>
+        <li>Beneficios: Mejora la flexibilidad y reduce el riesgo de lesiones</li>
+      </ul>
+      <img src="assets/images/cuadriceps.jpg" alt="Estiramiento de Cuádriceps" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+    </div>
+
+    <div class="exercise">
+      <h2>Estiramiento de espalda baja</h2>
+      <p>El estiramiento de la espalda baja ayuda a reducir la tensión y mejora la movilidad de la columna vertebral.</p>
+      <ul>
+        <li>Duración: 30 segundos</li>
+        <li>Intensidad: Baja</li>
+        <li>Beneficios: Alivia el dolor y mejora la postura</li>
+      </ul>
+      <img src="assets/images/espalda-baja.jpg" alt="Estiramiento de Espalda Baja" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+    </div>
+
+    <div class="exercise">
+      <h2>Estiramiento de isquiotibiales</h2>
+      <p>Este ejercicio está enfocado en alargar los músculos de la parte posterior del muslo, lo cual es clave para la flexibilidad.</p>
+      <ul>
+        <li>Duración: 30 segundos por pierna</li>
+        <li>Intensidad: Baja</li>
+        <li>Beneficios: Aumenta la flexibilidad y la movilidad de las piernas</li>
+      </ul>
+      <img src="assets/images/isquiotibiales.jpg" alt="Estiramiento de Isquiotibiales" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+    </div>
+  </div>
+</body>
+</html>
