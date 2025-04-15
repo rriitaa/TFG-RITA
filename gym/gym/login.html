@@ -106,7 +106,7 @@
   <div class="login-container">
     <div class="login-box">
       <h2>Log In</h2>
-      <form>
+      <form id="loginForm">
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Contraseña" required>
         <button type="submit">Entrar</button>
@@ -123,7 +123,7 @@
 
   <script>
     // Función de login
-    document.querySelector("form").addEventListener("submit", async function (e) {
+    document.querySelector("#loginForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const email = document.querySelector('input[name="email"]').value;
@@ -141,10 +141,13 @@
         const data = await response.json();
 
         if (response.ok) {
-          // ✅ Login exitoso, redirigir al inicio
-          window.location.href = "inicio.html"; // Redirigir a la página de inicio
+          // Si el login es exitoso, guarda la información del usuario en localStorage
+          localStorage.setItem("user", JSON.stringify(data.user));  // Guarda los datos del usuario en localStorage
+
+          // Redirige a la página de inicio
+          window.location.href = "inicio.html";
         } else {
-          // ❌ Mostrar error
+          // Si no es exitoso, muestra un mensaje de error
           alert(data.message);
         }
       } catch (err) {
@@ -153,5 +156,6 @@
       }
     });
   </script>
+
 </body>
 </html>

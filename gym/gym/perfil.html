@@ -141,6 +141,19 @@
   </div>
 
   <div class="perfil-container">
+    <!-- Mostrar la información del usuario desde localStorage -->
+    <div id="perfil-info">
+      <p><strong>Nombre y Apellidos:</strong> <span id="user-nombre">Cargando...</span></p>
+      <p><strong>Correo Electrónico:</strong> <span id="user-email">Cargando...</span></p>
+      <p><strong>Edad:</strong> <span id="user-edad">Cargando...</span></p>
+      <p><strong>Género:</strong> <span id="user-genero">Cargando...</span></p>
+      <p><strong>Peso:</strong> <span id="user-peso">Cargando...</span></p>
+      <p><strong>Altura:</strong> <span id="user-altura">Cargando...</span></p>
+      <p><strong>Actividad Física:</strong> <span id="user-actividad">Cargando...</span></p>
+      <p><strong>Objetivo Principal:</strong> <span id="user-objetivo">Cargando...</span></p>
+    </div>
+
+    <!-- Formulario de perfil (solo visible si no está logueado o si se quiere editar) -->
     <form action="" method="post">
       <!-- Datos Básicos -->
       <label for="nombre">Nombre y Apellidos:</label>
@@ -186,6 +199,25 @@
       <button type="submit">Guardar Cambios</button>
     </form>
   </div>
+
+  <script>
+    // Comprobar si los datos del usuario están guardados en localStorage
+    window.onload = function() {
+      const userInfo = JSON.parse(localStorage.getItem('usuario'));
+
+      if (userInfo) {
+        // Si los datos están guardados, los mostramos en el perfil
+        document.getElementById('user-nombre').textContent = userInfo.nombre || 'No disponible';
+        document.getElementById('user-email').textContent = userInfo.email || 'No disponible';
+        document.getElementById('user-edad').textContent = userInfo.edad || 'No disponible';
+        document.getElementById('user-genero').textContent = userInfo.genero || 'No disponible';
+        document.getElementById('user-peso').textContent = userInfo.peso || 'No disponible';
+        document.getElementById('user-altura').textContent = userInfo.altura || 'No disponible';
+        document.getElementById('user-actividad').textContent = userInfo.actividad || 'No disponible';
+        document.getElementById('user-objetivo').textContent = userInfo.objetivo || 'No disponible';
+      }
+    };
+  </script>
 
 </body>
 </html>

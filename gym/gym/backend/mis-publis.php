@@ -1,9 +1,32 @@
+<?php
+// Conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "Rosita100997";
+$dbname = "tfg-rita";
+
+// Crear conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar conexión
+if ($conn->connect_error) {
+  die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Obtener las publicaciones desde la base de datos
+$sql = "SELECT titulo, categoria_id, fecha_creacion FROM ejercicios_rutinas ORDER BY fecha_creacion DESC";
+$result = $conn->query($sql);
+
+// Cerrar la conexión
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio</title>
+  <title>Mis Publicaciones</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* Estilos generales */
@@ -66,53 +89,53 @@
 
     /* Contenido principal */
     .main-content {
-      text-align: center;
-      padding-top: 120px; /* Ajustado para dar más espacio al mensaje */
+      padding-top: 120px;
       color: #fff;
+      text-align: center;
     }
 
     .main-content h1 {
       font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    .welcome-message {
-      font-size: 24px;
-      font-weight: 600;
       margin-bottom: 40px;
-      color: #ffffff;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 12px;
     }
 
-    /* Botones */
-    .button-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
+    /* Lista de publicaciones */
+    .publi-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .main-button {
-      background-color: #ed563b;
-      color: white;
-      padding: 30px 50px;
-      border-radius: 20px;
-      font-size: 18px;
+    .publi-item {
+      background-color: rgba(246, 242, 242, 0.979);
+      color: #323030;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
       cursor: pointer;
-      width: 200px;
-      text-align: center;
       transition: background-color 0.3s ease;
     }
 
-    .main-button:hover {
-      background-color: #f9735b;
+    .publi-item:hover {
+      background-color: #ed563b;
+    }
+
+    .publi-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .publi-date {
+      font-size: 14px;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  
+
   <!-- Header -->
   <header class="background-header">
     <div class="header-area">
@@ -123,7 +146,7 @@
         <a href="inicio.html">Inicio</a>
         <a href="categorias.html">Categorías</a>
         <a href="comunidad.html">Comunidad</a>
-        <a href="mis-publis.html">Mis Publicaciones</a>
+        <a href="mis-publis.php">Mis Publicaciones</a>
         <a href="perfil.html">Mi perfil</a>
       </nav>
     </div>
@@ -131,27 +154,24 @@
 
   <!-- Main Content -->
   <div class="main-content">
-    <div id="welcome" class="welcome-message">Bienvenido/a</div>
-    <h1>¿Qué quieres hacer hoy?</h1>
-    
-    <div class="button-container">
-      <a href="comienza-entreno.html" class="main-button">Comienza tu entreno</a>
-      <a href="sube-ejers.html" class="main-button">Sube tus ejers</a>
-      <a href="ia-asistente.html" class="main-button">Botón de IA/Asistente</a>
-    </div>
+    <h1>Mis Publicaciones</h1>
+
+    <ul class="publi-list">
+      <?php
+      // Mostrar las publicaciones
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          echo "<li class='publi-item' onclick=\"window.location.href='detalle-publi.html'\">
+                  <div class='publi-title'>" . $row['titulo'] . "</div>
+                  <div class='publi-date'>Fecha: " . $row['fecha_creacion'] . "</div>
+                </li>";
+        }
+      } else {
+        echo "<li>No tienes publicaciones.</li>";
+      }
+      ?>
+    </ul>
   </div>
-
-  <!-- Script para mostrar el nombre del usuario -->
-  <script>
-    const nombre = localStorage.getItem("nombre"); // Cambié de "userName" a "nombre"
-    const welcomeDiv = document.getElementById("welcome");
-
-    if (nombre) {
-      welcomeDiv.textContent = `¡Bienvenido/a, ${nombre}!`;
-    } else {
-      welcomeDiv.textContent = `¡Bienvenido/a!`;
-    }
-  </script>
 
 </body>
 </html>
