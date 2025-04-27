@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sube tus Ejercicios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Estilos generales */
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Header */
+    .background-header {
+      background: rgba(250,250,250,0.95);
+      height: 80px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+      z-index: 100;
+    }
+
+    .header-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      height: 100%;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      color: #232d39;
+      text-transform: uppercase;
+    }
+
+    .logo em {
+      font-style: normal;
+      color: #ed563b;
+    }
+
+    .navbar {
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #232d39;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .navbar a:hover {
+      color: #ed563b;
+    }
+
+    /* Formulario de subida de ejercicio */
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      max-width: 600px;
+      margin: 100px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .form-container label {
+      display: block;
+      color: #000;
+      margin: 10px 0 5px;
+      font-size: 16px;
+    }
+
+    .form-container input, .form-container select, .form-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .form-container textarea {
+      height: 150px;
+    }
+
+    /* Botones para modificar y eliminar publicación */
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .action-button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .action-button.modify {
+      background-color: #ed563b;
+      color: white;
+    }
+
+    .action-button.delete {
+      background-color: #221c1c;
+      color: white;
+    }
+
+    .action-button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="background-header">
+    <div class="header-area">
+      <a href="index.html" class="logo">
+        RB <em>SMART FIT</em>
+      </a>
+      <nav class="navbar">
+        <a href="inicio.html">Inicio</a>
+        <a href="categorias.html">Categorías</a>
+        <a href="comunidad.html">Comunidad</a>
+        <a href="mis-publis.html">Mis Publicaciones</a>
+        <a href="perfil.html">Mi perfil</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Formulario para subir el ejercicio -->
+   
+  <div class="form-container">
+    <h1 style="text-align: center; margin-bottom: 30px;">Sube tu ejercicio o rutina</h1>
+
+    <form action="sube-ejers.php" method="POST">
+      <label for="titulo-ejercicio">Título del ejercicio/rutina:</label>
+      <input type="text" id="titulo-ejercicio" name="titulo" required>
+    
+      <label for="categoria-ejercicio">Categoría:</label>
+      <select id="categoria-ejercicio" name="categoria" required>
+        <option value="fuerza">Ejercicios de fuerza (strength, box)</option>
+        <option value="cardio">Cardio (correr, ciclismo)</option>
+        <option value="flexibilidad">Flexibilidad (yoga y estiramientos)</option>
+        <option value="gluteos">Glúteos y pierna</option>
+        <option value="espalda">Espalda sana</option>
+      </select>
+    
+      <label for="descripcion-ejercicio">Descripción:</label>
+      <textarea id="descripcion-ejercicio" name="descripcion" required></textarea>
+    
+      <!-- Botones para modificar y eliminar publicación -->
+      <div class="button-container">
+        <button class="action-button modify" type="submit">📝 Subir publicación</button>
+        <button class="action-button delete" type="reset">❌ Eliminar publicación</button>
+      </div>
+    </form>
+    
+  </div>
+
+</body>
+</html>

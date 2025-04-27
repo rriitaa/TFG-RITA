@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Estilos generales */
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Header */
+    .background-header {
+      background: rgba(250,250,250,0.95);
+      height: 80px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+      z-index: 100;
+    }
+
+    .header-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      height: 100%;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      color: #232d39;
+      text-transform: uppercase;
+    }
+
+    .logo em {
+      font-style: normal;
+      color: #ed563b;
+    }
+
+    .navbar {
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #232d39;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .navbar a:hover {
+      color: #ed563b;
+    }
+
+    /* Título de la página Perfil */
+    .perfil-title {
+      text-align: center;
+      font-size: 40px;
+      margin-top: 100px; /* Para no tapar el header */
+      color: #fff;
+      margin-bottom: 40px;
+    }
+
+    /* Formulario de perfil */
+    .perfil-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 40px;
+      margin: 0 auto;
+      max-width: 800px;
+      margin-top: -180px; /* Para no tapar el header */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 10px;
+      color: #232d39;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    button {
+      background-color: #ed563b;
+      color: white;
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #f9735b;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="background-header">
+    <div class="header-area">
+      <a href="index.html" class="logo">
+        RB <em>SMART FIT</em>
+      </a>
+      <nav class="navbar">
+        <a href="inicio.html">Inicio</a>
+        <a href="categorias.html">Categorias</a>
+        <a href="comunidad.html">Comunidad</a>
+        <a href="mis-publis.html">Mis publicaciones</a>
+        <a href="perfil.html">Mi perfil</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="perfil-title">
+    <h1>Mi Perfil</h1>
+  </div>
+
+  <div class="perfil-container">
+    <!-- Mostrar la información del usuario desde localStorage -->
+    <div id="perfil-info">
+      <p><strong>Nombre y Apellidos:</strong> <span id="user-nombre">Cargando...</span></p>
+      <p><strong>Correo Electrónico:</strong> <span id="user-email">Cargando...</span></p>
+      <p><strong>Edad:</strong> <span id="user-edad">Cargando...</span></p>
+      <p><strong>Género:</strong> <span id="user-genero">Cargando...</span></p>
+      <p><strong>Peso:</strong> <span id="user-peso">Cargando...</span></p>
+      <p><strong>Altura:</strong> <span id="user-altura">Cargando...</span></p>
+      <p><strong>Actividad Física:</strong> <span id="user-actividad">Cargando...</span></p>
+      <p><strong>Objetivo Principal:</strong> <span id="user-objetivo">Cargando...</span></p>
+    </div>
+
+    <!-- Formulario de perfil (solo visible si no está logueado o si se quiere editar) -->
+    <form action="" method="post">
+      <!-- Datos Básicos -->
+      <label for="nombre">Nombre y Apellidos:</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Juan Perez" required>
+
+      <label for="email">Correo Electrónico:</label>
+      <input type="email" id="email" name="email" placeholder="juanperez@email.com" required>
+
+      <label for="contraseña">Contraseña:</label>
+      <input type="password" id="contraseña" name="contraseña" placeholder="Mínimo 8 caracteres" required>
+
+      <label for="confirmar-contraseña">Confirmación de Contraseña:</label>
+      <input type="password" id="confirmar-contraseña" name="confirmar-contraseña" required>
+
+      <!-- Datos Opcionales -->
+      <label for="edad">Edad (Opcional):</label>
+      <input type="number" id="edad" name="edad" placeholder="Ej. 25">
+
+      <label for="genero">Género (Opcional):</label>
+      <select id="genero" name="genero">
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+        <option value="otro">Otro</option>
+      </select>
+
+      <label for="peso">Peso (Opcional):</label>
+      <input type="number" id="peso" name="peso" placeholder="Ej. 70 kg">
+
+      <label for="altura">Altura (Opcional):</label>
+      <input type="number" id="altura" name="altura" placeholder="Ej. 175 cm">
+
+      <label for="actividad">Nivel de Actividad Física (Opcional):</label>
+      <select id="actividad" name="actividad">
+        <option value="sedentario">Sedentario</option>
+        <option value="moderado">Moderado</option>
+        <option value="activo">Activo</option>
+      </select>
+
+      <label for="objetivo">Objetivo Principal (Opcional):</label>
+      <textarea id="objetivo" name="objetivo" placeholder="Ej. Perder peso, ganar músculo, etc."></textarea>
+
+      <!-- Botón de Guardar Cambios -->
+      <button type="submit">Guardar Cambios</button>
+    </form>
+  </div>
+
+  <script>
+    // Comprobar si los datos del usuario están guardados en localStorage
+    window.onload = function() {
+      const userInfo = JSON.parse(localStorage.getItem('usuario'));
+
+      if (userInfo) {
+        // Si los datos están guardados, los mostramos en el perfil
+        document.getElementById('user-nombre').textContent = userInfo.nombre || 'No disponible';
+        document.getElementById('user-email').textContent = userInfo.email || 'No disponible';
+        document.getElementById('user-edad').textContent = userInfo.edad || 'No disponible';
+        document.getElementById('user-genero').textContent = userInfo.genero || 'No disponible';
+        document.getElementById('user-peso').textContent = userInfo.peso || 'No disponible';
+        document.getElementById('user-altura').textContent = userInfo.altura || 'No disponible';
+        document.getElementById('user-actividad').textContent = userInfo.actividad || 'No disponible';
+        document.getElementById('user-objetivo').textContent = userInfo.objetivo || 'No disponible';
+      }
+    };
+  </script>
+
+</body>
+</html>

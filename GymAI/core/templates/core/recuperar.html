@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recuperar Contraseña</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .background-header {
+      background: rgba(250,250,250,0.95);
+      height: 80px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+      z-index: 100;
+    }
+
+    .header-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      height: 100%;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      color: #232d39;
+      text-transform: uppercase;
+    }
+
+    .logo em {
+      font-style: normal;
+      color: #ed563b;
+    }
+
+    .recovery-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding-top: 80px;
+    }
+
+    .recovery-box {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      width: 300px;
+      text-align: center;
+    }
+
+    .recovery-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .recovery-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #ed563b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .recovery-box button:hover {
+      background-color: #f9735b;
+    }
+
+    .recovery-box a {
+      display: block;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ed563b;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="background-header">
+    <div class="header-area">
+      <a href="index.html" class="logo">
+        RB <em>SMART FIT</em>
+      </a>
+    </div>
+  </header>
+
+  <!-- Recovery Form -->
+  <div class="recovery-container">
+    <div class="recovery-box">
+      <h2>Recuperar Contraseña</h2>
+      <p style="font-size: 14px;">Introduce tu correo y te enviaremos instrucciones para restablecer tu contraseña.</p>
+      <form>
+        <input type="email" name="email" placeholder="Tu email" required>
+        <button type="submit">Enviar instrucciones</button>
+      </form>
+      <a href="login.html">Volver al login</a>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector("form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const email = document.querySelector('input[name="email"]').value;
+
+      try {
+        const response = await fetch("/recuperar", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Te hemos enviado un email con instrucciones.");
+        } else {
+          alert(data.message || "No se pudo procesar tu solicitud.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Error al conectar con el servidor.");
+      }
+    });
+  </script>
+</body>
+</html>
