@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +13,7 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background: url("{% static 'images/gym.jpg' %}") no-repeat center center fixed;
       background-size: cover;
     }
 
@@ -132,11 +133,11 @@
         RB <em>SMART FIT</em>
       </a>
       <nav class="navbar">
-        <a href="inicio.html">Inicio</a>
-        <a href="categorias.html">Categorías</a>
-        <a href="comunidad.html">Comunidad</a>
-        <a href="mis-publis.html">Mis Publicaciones</a>
+        <a href="{% url 'home' %}">Inicio</a>
+        <a href="{% url 'ejercicios-comunidad' %}">Comunidad</a>
+        <a href="{% url 'listar_ejercicios' %}">Mis Publicaciones</a>
         <a href="perfil.html">Mi perfil</a>
+        <a href="{% url 'logout' %}">Salir</a>
       </nav>
     </div>
   </header>
@@ -146,12 +147,13 @@
   <div class="form-container">
     <h1 style="text-align: center; margin-bottom: 30px;">Sube tu ejercicio o rutina</h1>
 
-    <form action="sube-ejers.php" method="POST">
+    <form method="POST">
+      {% csrf_token %}
       <label for="titulo-ejercicio">Título del ejercicio/rutina:</label>
-      <input type="text" id="titulo-ejercicio" name="titulo" required>
+      <input type="text" name="titulo" maxlength="100" required="" id="id_titulo">
     
       <label for="categoria-ejercicio">Categoría:</label>
-      <select id="categoria-ejercicio" name="categoria" required>
+      <select id="id_categoria" name="categoria" required>
         <option value="fuerza">Ejercicios de fuerza (strength, box)</option>
         <option value="cardio">Cardio (correr, ciclismo)</option>
         <option value="flexibilidad">Flexibilidad (yoga y estiramientos)</option>
@@ -160,7 +162,7 @@
       </select>
     
       <label for="descripcion-ejercicio">Descripción:</label>
-      <textarea id="descripcion-ejercicio" name="descripcion" required></textarea>
+      <textarea id="id_descripcion" name="descripcion" required></textarea>
     
       <!-- Botones para modificar y eliminar publicación -->
       <div class="button-container">
@@ -172,4 +174,5 @@
   </div>
 
 </body>
+
 </html>

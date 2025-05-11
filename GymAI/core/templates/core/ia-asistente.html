@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +14,7 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background: url("{% static 'images/gym.jpg' %}") no-repeat center center fixed;
       background-size: cover;
     }
 
@@ -141,11 +143,11 @@
         RB <em>SMART FIT</em>
       </a>
       <nav class="navbar">
-        <a href="inicio.html">Inicio</a>
-        <a href="categorias.html">Categorías</a>
-        <a href="comunidad.html">Comunidad</a>
-        <a href="mis-publis.html">Mis Publicaciones</a>
+        <a href="{% url 'home' %}">Inicio</a>
+        <a href="{% url 'ejercicios-comunidad' %}">Comunidad</a>
+        <a href="{% url 'listar_ejercicios' %}">Mis publicaciones</a>
         <a href="perfil.html">Mi perfil</a>
+        <a href="{% url 'logout' %}">Salir</a>
       </nav>
     </div>
   </header>
@@ -167,32 +169,60 @@
   </div>
 
   <script>
-    // Función para simular el chat
     function sendMessage() {
       const input = document.getElementById('user-input');
       const message = input.value;
-
+      const chatContainer = document.getElementById('chat-container');
+  
       if (message.trim() !== "") {
-        const chatContainer = document.getElementById('chat-container');
-
-        // Añadir el mensaje del usuario al chat
+        // Mostrar mensaje del usuario
         const userMessage = document.createElement('div');
         userMessage.textContent = "Tú: " + message;
         chatContainer.appendChild(userMessage);
-
-        // Simular la respuesta de la IA
-        setTimeout(() => {
+  
+        // Enviar mensaje por AJAX a Django
+        fetch("/agente-ejercicios/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken")  // CSRF para Django
+          },
+          body: JSON.stringify({ message: message })
+        })
+        .then(response => response.json())
+        .then(data => {
           const botMessage = document.createElement('div');
-          botMessage.textContent = "Asistente IA: ¡Hola! ¿En qué puedo ayudarte hoy?";
+          botMessage.textContent = "Asistente IA: " + data.response;
           chatContainer.appendChild(botMessage);
-          chatContainer.scrollTop = chatContainer.scrollHeight; // Desplazar hacia abajo
-        }, 1000);
-        
-        input.value = ""; // Limpiar el campo de entrada
-        chatContainer.scrollTop = chatContainer.scrollHeight; // Desplazar hacia abajo
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+  
+        input.value = "";
+        chatContainer.scrollTop = chatContainer.scrollHeight;
       }
     }
+  
+    // Función para obtener el token CSRF
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
   </script>
+  
+  
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +13,7 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background: url("{% static 'images/gym.jpg' %}") no-repeat center center fixed;
       background-size: cover;
     }
 
@@ -121,11 +122,11 @@
         RB <em>SMART FIT</em>
       </a>
       <nav class="navbar">
-        <a href="inicio.html">Inicio</a>
-        <a href="categorias.html">Categorias</a>
-        <a href="comunidad.html">Comunidad</a>
-        <a href="mis-publis.html">Mis publicaciones</a>
+        <a href="{% url 'home' %}">Inicio</a>
+        <a href="{% url 'ejercicios-comunidad' %}">Comunidad</a>
+        <a href="{% url 'listar_ejercicios' %}">Mis publicaciones</a>
         <a href="perfil.html">Mi perfil</a>
+        <a href="{% url 'logout' %}">Salir</a>
       </nav>
     </div>
   </header>
@@ -135,16 +136,13 @@
     <h1>Mis Publicaciones</h1>
 
     <ul class="publi-list">
-      <!-- Ejemplo de publicación -->
-      <li class="publi-item" onclick="window.location.href='detalle-publi.html'">
-        <div class="publi-title">Ejercicio de Fuerza: Sentadillas</div>
-        <div class="publi-date">Fecha: 12/03/2025</div>
-      </li>
-
-      <li class="publi-item" onclick="window.location.href='detalle-publi.html'">
-        <div class="publi-title">Cardio: Correr 5km</div>
-        <div class="publi-date">Fecha: 10/03/2025</div>
-      </li>
+      {% for ejercicio in ejercicios %}
+        <!-- Ejemplo de publicación -->
+        <li class="publi-item" onclick="window.location.href='detalle-publi.html'">
+          <div class="publi-title">{{ ejercicio.categoria }}: {{ ejercicio.titulo }}</div>
+          <div class="publi-date">Fecha: {{ ejercicio.fecha_creacion|date:"d M Y H:i" }}</div>
+        </li>
+      {% endfor %}
       
       <!-- Aquí puedes ir añadiendo publicaciones -->
     </ul>

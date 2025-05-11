@@ -121,24 +121,24 @@
         RB <em>SMART FIT</em>
       </a>
       <nav class="navbar">
-        <a href="inicio.html">Inicio</a>
-        <a href="categorias.html">Categorías</a>
-        <a href="comunidad.html">Comunidad</a>
-        <a href="mis-publis.html">Mis Publicaciones</a>
+        <a href="{% url 'home' %}">Inicio</a>
+        <a href="{% url 'ejercicios-comunidad' %}">Comunidad</a>
+        <a href="{% url 'listar_ejercicios' %}">Mis publicaciones</a>
         <a href="perfil.html">Mi perfil</a>
+        <a href="{% url 'logout' %}">Salir</a>
       </nav>
     </div>
   </header>
 
   <!-- Main Content -->
   <div class="main-content">
-    <div id="welcome" class="welcome-message">Bienvenido   {{ user.username }} </div>
+    <div id="welcome" class="welcome-message">Bienvenido/a {{ user.username }}</div>
     <h1>¿Qué quieres hacer hoy?</h1>
     
     <div class="button-container">
       <a href="comienza-entreno.html" class="main-button">Comienza tu entreno</a>
-      <a href="sube-ejers.html" class="main-button">Sube tus ejers</a>
-      <a href="ia-asistente.html" class="main-button">Botón de IA/Asistente</a>
+      <a href="{% url 'subir-ejercicio' %}" class="main-button">Sube tu Ejercicio</a>
+      <a href="{% url 'agente-ejercicios' %}" class="main-button">Botón de IA/Asistente</a>
     </div>
   </div>
 
