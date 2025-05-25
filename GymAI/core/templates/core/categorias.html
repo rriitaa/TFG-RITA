@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +12,7 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background: url("{% static 'images/gym.jpg' %}") no-repeat center center fixed;
       background-size: cover;
       height: 100vh;
     }
@@ -141,11 +142,7 @@
         RB <em>SMART FIT</em>
       </a>
       <nav class="navbar">
-        <a href="inicio.html">Inicio</a>
-        <a href="categorias.html">Categorías</a>
-        <a href="comunidad.html">Comunidad</a>
-        <a href="mis-publis.html">Mis Publicaciones</a>
-        <a href="miperfil.html">Mi perfil</a>
+        <a href="{% url 'user_login' %}">Login</a>
       </nav>
     </div>
   </header>
@@ -160,31 +157,31 @@
     <div class="categoria-card">
       <h3>Fuerza</h3>
       <p>Ejercicios para fortalecer músculos y mejorar la resistencia.</p>
-      <a href="ejercicios_fuerza.html" class="view-button">Ver Ejercicios</a>
+      <a href="{% url 'categoria_fuerza' %}" class="view-button">Ver Ejercicios</a>
     </div>
 
     <div class="categoria-card">
       <h3>Cardio</h3>
       <p>Ejercicios para mejorar la salud cardiovascular y quemar calorías.</p>
-      <a href="ejercicios_cardio.html" class="view-button">Ver Ejercicios</a>
+      <a href="{% url 'categoria_cardio' %}" class="view-button">Ver Ejercicios</a>
     </div>
 
     <div class="categoria-card">
       <h3>Flexibilidad</h3>
       <p>Ejercicios para aumentar la movilidad y elasticidad del cuerpo.</p>
-      <a href="ejercicios_flexibilidad.html" class="view-button">Ver Ejercicios</a>
+      <a href="{% url 'categoria_flexibilidad' %}" class="view-button">Ver Ejercicios</a>
     </div>
 
     <div class="categoria-card">
       <h3>Glúteos</h3>
       <p>Ejercicios enfocados en tonificar y fortalecer los glúteos.</p>
-      <a href="ejercicios_gluteos.html" class="view-button">Ver Ejercicios</a>
+      <a href="{% url 'categoria_gluteos' %}" class="view-button">Ver Ejercicios</a>
     </div>
 
     <div class="categoria-card">
       <h3>Espalda</h3>
       <p>Ejercicios para mejorar la postura y fortalecer la espalda baja.</p>
-      <a href="ejercicios_espalda.html" class="view-button">Ver Ejercicios</a>
+      <a href="{% url 'categoria_espalda' %}" class="view-button">Ver Ejercicios</a>
     </div>
 
   </div>

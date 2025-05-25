@@ -14,7 +14,6 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      /* background: url('assets/images/gym.jpg') no-repeat center center fixed; */
       background: url("{% static 'images/gym.jpg' %}") no-repeat center center fixed;
       background-size: cover;
     }
@@ -130,7 +129,11 @@
       <!-- Enlace para recuperar contraseña -->
       <div style="margin-top: 10px;">
         <a href="{% url 'registrar' %}" style="font-size: 14px; color: #ed563b; text-decoration: none;">
-          ¿No tienes cuenta aun? - Registrate
+          Registrate
+        </a>
+        -
+        <a href="{% url 'recuperar-contrasena' %}" style="font-size: 14px; color: #ed563b; text-decoration: none;">
+          Recuperar Contraseña
         </a>
       </div>
     </div>

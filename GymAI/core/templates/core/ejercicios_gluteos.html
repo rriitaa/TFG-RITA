@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +12,7 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background: url("{% static 'images/gym.jpg' %}") no-repeat center center fixed;
       background-size: cover;
       height: 100vh;
     }
@@ -153,11 +154,7 @@
         RB <em>SMART FIT</em>
       </a>
       <nav class="navbar">
-        <a href="inicio.html">Inicio</a>
-        <a href="categorias.html">Categorías</a>
-        <a href="comunidad.html">Comunidad</a>
-        <a href="mis-publis.html">Mis Publicaciones</a>
-        <a href="miperfil.html">Mi perfil</a>
+        <a href="{% url 'user_login' %}">Login</a>
       </nav>
     </div>
   </header>
@@ -177,7 +174,7 @@
         <li>Intensidad: Alta</li>
         <li>Beneficios: Tonifica los glúteos y las piernas</li>
       </ul>
-      <img src="assets/images/sentadillas.jpg" alt="Sentadillas" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+      <img src="{% static 'images/flexiones.jpg' %}" alt="Sentadillas" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
 
     <div class="exercise">
@@ -188,7 +185,7 @@
         <li>Intensidad: Media</li>
         <li>Beneficios: Aumenta la fuerza de los glúteos y la cadera</li>
       </ul>
-      <img src="assets/images/puente-gluteos.jpg" alt="Puente de glúteos" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+      <img src="{% static 'images/flexiones.jpg' %}" alt="Puente de glúteos" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
 
     <div class="exercise">
@@ -199,7 +196,7 @@
         <li>Intensidad: Media-Alta</li>
         <li>Beneficios: Mejora la estabilidad y tonifica los glúteos</li>
       </ul>
-      <img src="assets/images/lunges.jpg" alt="Lunges" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+      <img src="{% static 'images/lunges.jpg' %}" alt="Lunges" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
   </div>
 </body>

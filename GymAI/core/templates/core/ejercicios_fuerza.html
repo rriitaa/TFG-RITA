@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +12,7 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background: url("{% static 'images/gym.jpg' %}") no-repeat center center fixed;
       background-size: cover;
       height: 100vh;
     }
@@ -153,11 +154,7 @@
         RB <em>SMART FIT</em>
       </a>
       <nav class="navbar">
-        <a href="inicio.html">Inicio</a>
-        <a href="categorias.html">Categorías</a>
-        <a href="comunidad.html">Comunidad</a>
-        <a href="mis-publis.html">Mis Publicaciones</a>
-        <a href="miperfil.html">Mi perfil</a>
+        <a href="{% url 'user_login' %}">Login</a>
       </nav>
     </div>
   </header>
@@ -177,7 +174,7 @@
         <li>Intensidad: Alta</li>
         <li>Beneficios: Fortalece el torso superior</li>
       </ul>
-      <img src="assets/images/flexiones.jpg" alt="Flexiones" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+      <img src="{% static 'images/flexiones.jpg' %}" alt="Flexiones" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
 
     <div class="exercise">
@@ -188,7 +185,7 @@
         <li>Intensidad: Alta</li>
         <li>Beneficios: Mejora la fuerza en la parte inferior del cuerpo</li>
       </ul>
-      <img src="assets/images/sentadillas.jpg" alt="Sentadillas" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+      <img src="{% static 'images/sentadillas.jpg' %}" alt="Sentadillas" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
 
     <div class="exercise">
@@ -199,7 +196,7 @@
         <li>Intensidad: Alta</li>
         <li>Beneficios: Fortalece el abdomen y mejora la postura</li>
       </ul>
-      <img src="assets/images/plancha.jpg" alt="Plancha" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+      <img src="{% static 'images/plancha.jpg' %}" alt="Plancha" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
   </div>
 </body>

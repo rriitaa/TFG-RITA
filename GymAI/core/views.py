@@ -11,9 +11,28 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 #import openai
 
+# Definimos el cliente de OpenAI
 
-def saludo(request):
-    return HttpResponse("Hola Mundo")
+def index(request):
+    return render(request, 'core/index.html')
+
+def categorias(request):
+    return render(request, "core/categorias.html")
+
+def categoria_fuerza(request):
+    return render(request, "core/ejercicios_fuerza.html")
+
+def categoria_cardio(request):
+    return render(request, "core/ejercicios_cardio.html")
+
+def categoria_flexibilidad(request):
+    return render(request, "core/ejercicios_flexibilidad.html")
+
+def categoria_gluteos(request):
+    return render(request, "core/ejercicios_gluteos.html")
+
+def categoria_espalda(request):
+    return render(request, "core/ejercicios_espalda.html")
 
 def registrar(request):
     if request.method == 'POST':
@@ -31,6 +50,9 @@ def home(request):
         messages.warning(request, "Debes iniciar sesión para subir ejercicios.")
         return redirect('user_login')
     return render(request, "core/inicio.html")
+
+def recuperar_contrasena(request):
+    return render(request, 'core/recuperar.html')
 
 def user_login(request):
     if request.method == 'POST':

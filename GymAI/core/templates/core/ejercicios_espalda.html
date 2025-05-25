@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +12,7 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background: url('assets/images/gym.jpg') no-repeat center center fixed;
+      background: url("{% static 'images/gym.jpg' %}") no-repeat center center fixed;
       background-size: cover;
       height: 100vh;
     }
@@ -153,11 +154,7 @@
         RB <em>SMART FIT</em>
       </a>
       <nav class="navbar">
-        <a href="inicio.html">Inicio</a>
-        <a href="categorias.html">Categorías</a>
-        <a href="comunidad.html">Comunidad</a>
-        <a href="mis-publis.html">Mis Publicaciones</a>
-        <a href="miperfil.html">Mi perfil</a>
+        <a href="{% url 'user_login' %}">Login</a>
       </nav>
     </div>
   </header>
@@ -177,7 +174,7 @@
         <li>Intensidad: Alta</li>
         <li>Beneficios: Fortalece los músculos de la espalda</li>
       </ul>
-      <img src="assets/images/remo.jpg" alt="Remo con barra" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+      <img src="{% static 'images/remo.jpg' %}" alt="Remo con barra" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
 
     <div class="exercise">
@@ -188,7 +185,7 @@
         <li>Intensidad: Alta</li>
         <li>Beneficios: Fortalece la parte superior de la espalda y los hombros</li>
       </ul>
-      <img src="assets/images/pull-ups.jpg" alt="Pull-ups" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+      <img src="{% static 'images/pull-ups.jpg' %}" alt="Pull-ups" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
 
     <div class="exercise">
@@ -199,7 +196,7 @@
         <li>Intensidad: Media</li>
         <li>Beneficios: Mejora la postura y fortalece la espalda baja</li>
       </ul>
-      <img src="assets/images/hiperextensiones.jpg" alt="Hiperextensiones" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
+      <img src="{% static 'images/hiperextensiones.jpg' %}" alt="Hiperextensiones" style="width: 100%; height: auto; border-radius: 8px; margin-top: 10px;">
     </div>
   </div>
 </body>
